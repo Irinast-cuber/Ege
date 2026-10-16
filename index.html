@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Обществознание — тренажёр ЕГЭ</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  :root{
+    --bg1:#667eea; --bg2:#764ba2;
+    --card:#ffffff; --text:#1f2937; --muted:#6b7280;
+    --primary:#6366f1; --primary-dark:#4f46e5;
+    --success:#10b981; --error:#ef4444; --warn:#f59e0b;
+    --radius:20px;
+  }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    min-height:100vh;color:var(--text);padding:16px;
+    display:flex;align-items:flex-start;justify-content:center;
+  }
+  .app{width:100%;max-width:760px}
+  .screen{animation:fadeIn .3s ease}
+  .screen.hidden{display:none}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .card{
+    background:var(--card);border-radius:var(--radius);padding:24px;
+    box-shadow:0 20px 50px rgba(0,0,0,.18);margin-bottom:16px;
+  }
+
+  h1{font-size:26px;margin-bottom:8px}
+  h2{font-size:20px;margin-bottom:8px}
+  p.sub{color:var(--muted);margin-bottom:20px;font-size:15px}
+
+  /* --- Стартовый экран --- */
+  .animal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .animal-card{
+    border:2px solid #e5e7eb;border-radius:16px;padding:20px;text-align:center;
+    cursor:pointer;transition:all .2s;background:#fafafa;
+  }
+  .animal-card:hover{border-color:var(--primary);transform:translateY(-3px);
+    box-shadow:0 10px 20px rgba(99,102,241,.2)}
+  .animal-card .emoji{font-size:56px;display:block;margin-bottom:8px}
+  .animal-card .name{font-weight:600;font-size:16px}
+  .animal-card .desc{font-size:13px;color:var(--muted);margin-top:4px}
+
+  /* --- Экран питомца --- */
+  .pet-card{display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+    background:linear-gradient(135deg,#fef3c7,#fde68a);border:2px solid #fbbf24}
+  .pet-display{
+    width:110px;height:110px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#fff,#fef3c7);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:inset 0 0 20px rgba(251,191,36,.5);
+    flex-shrink:0;
+  }
+  .pet-emoji{
+    font-size:60px;line-height:1;display:inline-block;
+    animation:breathe 3s ease-in-out infinite;
+    transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes breathe{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.06) translateY(-3px)}}
+  .pet-info{flex:1;min-width:180px}
+  .pet-name{font-size:20px;font-weight:700;margin-bottom:2px}
+  .pet-stage{font-size:14px;color:#92400e;font-weight:600;margin-bottom:10px}
+  .progress-bar{height:10px;background:rgba(255,255,255,.6);border-radius:5px;overflow:hidden;margin-bottom:6px}
+  .progress-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#ea580c);
+    border-radius:5px;transition:width .6s ease;width:0}
+  .pet-xp{font-size:13px;color:#78350f;font-weight:600}
+  .btn-ghost{
+    background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.1);
+    padding:8px 14px;border-radius:10px;cursor:pointer;font-size:13px;
+    font-weight:600;color:#78350f;transition:all .2s;
+  }
+  .btn-ghost:hover{background:#fff}
+
+  /* --- Статистика --- */
+  .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+  .stat{background:var(--card);border-radius:14px;padding:14px;text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.08)}
+  .stat span{font-size:20px;display:block;margin-bottom:2px}
+  .stat b{font-size:20px;display:block}
+  .stat small{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+
+  /* --- Темы --- */
+  .topic{background:var(--card);border-radius:var(--radius);padding:18px;
+    margin-bottom:12px;box-shadow:0 10px 25px rgba(0,0,0,.08)}
+  .topic-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .topic-icon{font-size:26px}
+  .topic-title{font-weight:700;font-size:17px}
+  .lessons{display:flex;flex-direction:column;gap:8px}
+  .lesson{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 14px;border-radius:12px;background:#f3f4f6;
+    cursor:pointer;transition:all .2s;border:2px solid transparent;
+  }
+  .lesson:hover{background:#e0e7ff;border-color:#c7d2fe}
+  .lesson.done{background:#d1fae5;border-color:#6ee7b7}
+  .lesson-num{
+    width:32px;height:32px;border-radius:50%;background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:14px;flex-shrink:0;color:var(--primary-dark);
+  }
+  .lesson.done .lesson-num{background:var(--success);color:#fff}
+  .lesson-title{flex:1;font-weight:500;font-size:14px}
+  .lesson-score{font-size:12px;color:var(--muted);font-weight:600}
+  .lesson.done .lesson-score{color:var(--success)}
+
+  /* --- Квиз --- */
+  .quiz-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .quiz-header .progress-bar{flex:1;background:#e5e7eb;margin:0}
+  .quiz-header .progress-fill{background:linear-gradient(90deg,#6366f1,#8b5cf6)}
+  .quiz-count{font-size:13px;color:var(--muted);font-weight:700;min-width:36px;text-align:right}
+  .quiz-q{font-size:19px;line-height:1.4;margin-bottom:20px}
+  .options{display:flex;flex-direction:column;gap:10px}
+  .option{
+    padding:14px 16px;border-radius:12px;border:2px solid #e5e7eb;
+    background:#fff;cursor:pointer;font-size:15px;text-align:left;
+    transition:all .15s;font-family:inherit;color:var(--text);
+  }
+  .option:hover:not(:disabled){border-color:var(--primary);background:#f5f3ff}
+  .option:disabled{cursor:default}
+  .option.correct{border-color:var(--success);background:#d1fae5;font-weight:600}
+  .option.wrong{border-color:var(--error);background:#fee2e2;font-weight:600}
+  .explain{
+    margin-top:16px;padding:14px;border-radius:12px;
+    background:#fef3c7;border-left:4px solid var(--warn);
+    font-size:14px;line-height:1.5;
+  }
+  .explain.hidden{display:none}
+
+  .btn-primary{
+    width:100%;padding:14px;border-radius:12px;border:none;
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    color:#fff;font-weight:700;font-size:16px;cursor:pointer;
+    margin-top:16px;transition:all .2s;font-family:inherit;
+    box-shadow:0 8px 20px rgba(99,102,241,.4);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(99,102,241,.5)}
+  .btn-primary.hidden{display:none}
+  .btn-reset{
+    width:100%;padding:10px;border:none;background:transparent;
+    color:rgba(255,255,255,.7);font-size:13px;cursor:pointer;
+    text-decoration:underline;font-family:inherit;margin-top:8px;
+  }
+  .btn-reset:hover{color:#fff}
+
+  /* --- Результат --- */
+  .result-card{text-align:center;padding:36px 24px}
+  .result-emoji{font-size:72px;margin-bottom:12px;animation:pop .5s ease}
+  @keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
+  .result-card h2{font-size:24px;margin-bottom:8px}
+  .result-card p{color:var(--muted);margin-bottom:20px;font-size:15px}
+
+  /* --- Level up --- */
+  .levelup{
+    position:fixed;inset:0;background:rgba(0,0,0,.6);
+    display:flex;align-items:center;justify-content:center;
+    z-index:100;animation:fadeIn .3s;padding:20px;
+  }
+  .levelup-card{
+    background:#fff;border-radius:24px;padding:36px;text-align:center;
+    max-width:340px;animation:pop .5s ease;
+  }
+  .levelup-card .emoji{font-size:80px;margin-bottom:12px}
+  .levelup-card h3{font-size:22px;margin-bottom:8px;color:var(--primary-dark)}
+  .levelup-card p{color:var(--muted);font-size:14px;margin-bottom:20px}
+
+  @media (max-width:480px){
+    .pet-card{flex-direction:column;text-align:center}
+    .animal-grid{gap:8px}
+    .animal-card .emoji{font-size:44px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ ЭКРАН 1: ВЫБОР ПИТОМЦА ============ -->
+  <div id="screen-start" class="screen">
+    <div class="card">
+      <h1>🐾 Выбери питомца</h1>
+      <p class="sub">Он будет расти вместе с твоими знаниями. Чем больше XP — тем сильнее питомец.</p>
+      <div class="animal-grid" id="animal-grid"></div>
+    </div>
+  </div>
+
+  <!-- ============ ЭКРАН 2: ГЛАВНАЯ ============ -->
+  <div id="screen-home" class="screen hidden">
+    <div class="card pet-card">
+      <div class="pet-display">
+        <span class="pet-emoji" id="pet-emoji">🐱</span>
+      </div>
+      <div class="pet-info">
+        <div class="pet-name" id="pet-name">Кот</div>
+        <div class="pet-stage" id="pet-stage">Малыш</div>
+        <div class="progress-bar"><div class="progress-fill" id="pet-progress"></div></div>
+        <div class="pet-xp" id="pet-xp">0 / 100 XP до след. уровня</div>
+      </div>
+      <button class="btn-ghost" id="change-pet">Сменить</button>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat"><span>🔥</span><b id="stat-streak">0</b><small>дней подряд</small></div>
+      <div class="stat"><span>⭐</span><b id="stat-xp">0</b><small>всего XP</small></div>
+      <div class="stat"><span>📚</span><b id="stat-lessons">0</b><small>уроков</small></div>
+    </div>
+
+    <div id="topics"></div>
+
+    <button class="btn-reset" id="reset-btn">Сбросить весь прогресс</button>
+  </div>
+
+  <!-- ============ ЭКРАН 3: ВИКТОРИНА ============ -->
+  <div id="screen-quiz" class="screen hidden">
+    <div class="card">
+      <div class="quiz-header">
+        <button class="btn-ghost" id="quiz-back">←</button>
+        <div class="progress-bar"><div class="progress-fill" id="quiz-progress"></div></div>
+        <div class="quiz-count" id="quiz-count">1/5</div>
+      </div>
+      <h2 class="quiz-q" id="quiz-q">Вопрос</h2>
+      <div class="options" id="quiz-options"></div>
+      <div class="explain hidden" id="quiz-explain"></div>
+      <button class="btn-primary hidden" id="quiz-next">Далее →</button>
+    </div>
+  </div>
+
+  <!-- ============ ЭКРАН 4: РЕЗУЛЬТАТ ============ -->
+  <div id="screen-result" class="screen hidden">
+    <div class="card result-card">
+      <div class="result-emoji" id="result-emoji">🎉</div>
+      <h2 id="result-title">Отлично!</h2>
+      <p id="result-sub">Ты заработал +0 XP</p>
+      <button class="btn-primary" id="result-next">Продолжить</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   КОНФИГ: ЖИВОТНЫЕ
+   Каждое животное имеет 5 стадий роста (эмодзи меняется)
+   ============================================================ */
+const ANIMALS = {
+  cat: {
+    name: 'Кот',
+    desc: 'Любопытный и независимый',
+    emoji: ['🐱','🐈','🐈‍⬛','🦁','🐯'],
+    color: '#f59e0b'
+  },
+  dog: {
+    name: 'Пёс',
+    desc: 'Верный и настойчивый',
+    emoji: ['🐶','🐕','🐕‍🦺','🐺','🦮'],
+    color: '#8b5cf6'
+  },
+  owl: {
+    name: 'Сова',
+    desc: 'Мудрая и внимательная',
+    emoji: ['🥚','🐣','🐥','🦉','🦅'],
+    color: '#3b82f6'
+  },
+  dragon: {
+    name: 'Дракон',
+    desc: 'Растёт в силе и знаниях',
+    emoji: ['🥚','🦎','🐊','🐉','🐲'],
+    color: '#ef4444'
+  }
+};
+
+/* Стадии роста: сколько нужно XP и как называется */
+const STAGES = [
+  { xp: 0,   label: 'Малыш',    scale: 0.8 },
+  { xp: 100, label: 'Растёт',   scale: 1.0 },
+  { xp: 250, label: 'Юный',     scale: 1.15 },
+  { xp: 500, label: 'Взрослый', scale: 1.3 },
+  { xp: 900, label: 'Мудрый',   scale: 1.5 }
+];
+
+/* ============================================================
+   КОНТЕНТ: 5 ТЕМ ЕГЭ, в каждой — уроки с вопросами
+   correct — индекс правильного ответа в массиве options
+   ============================================================ */
+const TOPICS = [
+  {
+    id: 'society', icon: '🌍', title: 'Человек и общество',
+    lessons: [
+      {
+        title: 'Сферы общественной жизни',
+        questions: [
+          { q: 'Какая сфера включает науку, религию и искусство?',
+            options: ['Экономическая','Духовная','Политическая','Социальная'],
+            correct: 1,
+            explain: 'Духовная сфера охватывает науку, религию, искусство, образование и мораль.' },
+          { q: 'Что относится к экономической сфере?',
+            options: ['Выборы президента','Производство товаров','Открытие театра','Взаимодействие классов'],
+            correct: 1,
+            explain: 'Экономическая сфера — производство, распределение, обмен и потребление благ.' },
+          { q: 'Деятельность политических партий относится к…',
+            options: ['Духовной сфере','Социальной сфере','Политической сфере','Экономической сфере'],
+            correct: 2,
+            explain: 'Политическая сфера — власть, государство, партии, выборы.' },
+          { q: 'Взаимодействие классов и социальных групп — это…',
+            options: ['Политическая сфера','Социальная сфера','Духовная сфера','Экономическая сфера'],
+            correct: 1,
+            explain: 'Социальная сфера — отношения между группами, классами, слоями.' }
+        ]
+      },
+      {
+        title: 'Человек и деятельность',
+        questions: [
+          { q: 'Что отличает человека от животного?',
+            options: ['Инстинкты','Целенаправленная творческая деятельность','Потребность в пище','Забота о потомстве'],
+            correct: 1,
+            explain: 'Только человек способен к сознательной целенаправленной творческой деятельности.' },
+          { q: 'Игра как вид деятельности отличается тем, что…',
+            options: ['Направлена на результат','Ориентирована на сам процесс','Требует оплаты','Всегда коллективная'],
+            correct: 1,
+            explain: 'В игре важен сам процесс, а не материальный результат.' },
+          { q: 'Личность — это…',
+            options: ['Биологический организм','Совокупность социально значимых качеств','Только индивид','Только темперамент'],
+            correct: 1,
+            explain: 'Личность формируется в обществе и включает социально значимые качества.' },
+          { q: 'Мировоззрение — это…',
+            options: ['Настроение человека','Система взглядов на мир и место человека в нём','Набор инстинктов','Способ заработка'],
+            correct: 1,
+            explain: 'Мировоззрение — система взглядов, оценок и принципов.' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'economy', icon: '💰', title: 'Экономика',
+    lessons: [
+      {
+        title: 'Экономика как наука',
+        questions: [
+          { q: 'Что изучает микроэкономика?',
+            options: ['Инфляцию в стране','Поведение отдельных потребителей и фирм','Мировой рынок','Государственный бюджет'],
+            correct: 1,
+            explain: 'Микроэкономика — поведение отдельных субъектов: потребителей, фирм.' },
+          { q: 'Главная проблема экономики — это…',
+            options: ['Нехватка денег','Ограниченность ресурсов','Высокие налоги','Безработица'],
+            correct: 1,
+            explain: 'Ресурсы ограничены, а потребности безграничны — это основа экономики.' },
+          { q: 'Альтернативная стоимость — это…',
+            options: ['Цена товара','Упущенная выгода от лучшей из отвергнутых альтернатив','Скидка','Прибыль фирмы'],
+            correct: 1,
+            explain: 'Альтернативная стоимость — ценность лучшей отвергнутой возможности.' },
+          { q: 'Что относится к факторам производства?',
+            options: ['Деньги и акции','Труд, земля, капитал, предпринимательство','Товары и услуги','Налоги и сборы'],
+            correct: 1,
+            explain: 'Классические факторы производства: труд, земля, капитал, предпринимательские способности.' }
+        ]
+      },
+      {
+        title: 'Рынок и инфляция',
+        questions: [
+          { q: 'Закон спроса: при росте цены…',
+            options: ['Спрос растёт','Величина спроса падает','Спрос не меняется','Спрос исчезает'],
+            correct: 1,
+            explain: 'Чем выше цена, тем меньше величина спроса (при прочих равных).' },
+          { q: 'Инфляция — это…',
+            options: ['Рост зарплат','Обесценивание денег и рост цен','Падение цен','Рост безработицы'],
+            correct: 1,
+            explain: 'Инфляция — устойчивый рост общего уровня цен.' },
+          { q: 'Что относится к постоянным издержкам?',
+            options: ['Покупка сырья','Аренда помещения','Оплата сдельной работы','Транспортные расходы'],
+            correct: 1,
+            explain: 'Постоянные издержки не зависят от объёма выпуска: аренда, оклады, страховка.' },
+          { q: 'Что такое ВВП?',
+            options: ['Все доходы граждан','Стоимость всех конечных товаров и услуг за год','Госбюджет','Внешний долг'],
+            correct: 1,
+            explain: 'ВВП — рыночная стоимость всех конечных товаров и услуг, произведённых в стране за год.' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'social', icon: '👥', title: 'Социальные отношения',
+    lessons: [
+      {
+        title: 'Социальная структура',
+        questions: [
+          { q: 'Социальная стратификация — это…',
+            options: ['Равенство всех','Расслоение общества на группы','Рост населения','Смена власти'],
+            correct: 1,
+            explain: 'Стратификация — деление общества на слои по доходу, власти, престижу.' },
+          { q: 'Социальная мобильность — это…',
+            options: ['Передвижение по городу','Перемещение между социальными группами','Рост доходов','Смена профессии без изменения статуса'],
+            correct: 1,
+            explain: 'Мобильность — изменение социального положения (вертикальная и горизонтальная).' },
+          { q: 'Социальная роль — это…',
+            options: ['Профессия','Модель поведения, ожидаемая от человека','Должность','Хобби'],
+            correct: 1,
+            explain: 'Социальная роль — ожидаемое поведение, связанное со статусом.' },
+          { q: 'Социальный конфликт — это…',
+            options: ['Дружба','Столкновение интересов групп','Согласие','Праздник'],
+            correct: 1,
+            explain: 'Конфликт — столкновение противоположных интересов и целей.' }
+        ]
+      },
+      {
+        title: 'Семья и молодёжь',
+        questions: [
+          { q: 'Нуклеарная семья — это…',
+            options: ['Семья с бабушками и дедушками','Семья из родителей и детей','Многодетная семья','Семья без детей'],
+            correct: 1,
+            explain: 'Нуклеарная семья состоит из супругов и их детей.' },
+          { q: 'Функция семьи, связанная с рождением детей —',
+            options: ['Экономическая','Репродуктивная','Воспитательная','Досуговая'],
+            correct: 1,
+            explain: 'Репродуктивная функция — воспроизводство населения.' },
+          { q: 'Что характеризует демократическую (партнёрскую) семью?',
+            options: ['Главенство мужа','Равноправие супругов','Главенство жены','Жёсткая иерархия'],
+            correct: 1,
+            explain: 'В партнёрской семье решения принимаются совместно, обязанности распределяются.' },
+          { q: 'Молодёжь как социальная группа выделяется по…',
+            options: ['Доходу','Возрасту и социальному положению','Религии','Национальности'],
+            correct: 1,
+            explain: 'Молодёжь — группа с общими возрастными границами и социальными чертами.' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'politics', icon: '🏛️', title: 'Политика',
+    lessons: [
+      {
+        title: 'Власть и государство',
+        questions: [
+          { q: 'Политическая власть — это…',
+            options: ['Власть родителей','Способность влиять на поведение людей в обществе','Власть над природой','Экономическая власть'],
+            correct: 1,
+            explain: 'Политическая власть распространяется на всё общество и опирается на государство.' },
+          { q: 'Признак любого государства — это…',
+            options: ['Наличие партий','Суверенитет','Многопартийность','Свобода слова'],
+            correct: 1,
+            explain: 'Суверенитет — верховенство и независимость государственной власти.' },
+          { q: 'Форма правления показывает…',
+            options: ['Как устроена территория','Как организованы высшие органы власти','Какой режим в стране','Кто президент'],
+            correct: 1,
+            explain: 'Форма правления — монархия или республика, порядок формирования высших органов.' },
+          { q: 'Монархия отличается тем, что…',
+            options: ['Власть выборная','Власть передаётся по наследству','Народ правит','Есть парламент'],
+            correct: 1,
+            explain: 'В монархии власть передаётся по наследству и, как правило, пожизненно.' }
+        ]
+      },
+      {
+        title: 'Режимы и партии',
+        questions: [
+          { q: 'Демократия характеризуется…',
+            options: ['Одной партией','Свободными выборами и правами граждан','Цензурой','Диктатурой'],
+            correct: 1,
+            explain: 'Демократия — власть народа через свободные выборы и защиту прав.' },
+          { q: 'Тоталитаризм — это…',
+            options: ['Свобода слова','Полный контроль над всеми сферами жизни','Разделение властей','Многопартийность'],
+            correct: 1,
+            explain: 'Тоталитарный режим контролирует политику, экономику, культуру и частную жизнь.' },
+          { q: 'Политическая партия — это…',
+            options: ['Группа друзей','Организация, борющаяся за власть','Госорган','Профсоюз'],
+            correct: 1,
+            explain: 'Партия — организованная группа, цель которой — участие в осуществлении власти.' },
+          { q: 'Выборы — это…',
+            options: ['Назначение чиновников','Процедура формирования органов власти голосованием','Референдум','Митинг'],
+            correct: 1,
+            explain: 'Выборы — процедура избрания должностных лиц и органов.' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'law', icon: '⚖️', title: 'Право',
+    lessons: [
+      {
+        title: 'Основы права',
+        questions: [
+          { q: 'Право — это…',
+            options: ['Моральные нормы','Система общеобязательных норм, установленных государством','Обычаи','Религиозные правила'],
+            correct: 1,
+            explain: 'Право — система норм, обеспеченных силой государства.' },
+          { q: 'Основной источник права в РФ — это…',
+            options: ['Обычай','Нормативно-правовой акт','Судебный прецедент','Религиозный текст'],
+            correct: 1,
+            explain: 'В романо-германской правовой семье основной источник — НПА.' },
+          { q: 'Правоотношение — это…',
+            options: ['Дружеская связь','Связь между субъектами с взаимными правами и обязанностями','Экономическая сделка','Религиозный обряд'],
+            correct: 1,
+            explain: 'Правоотношение — общественное отношение, урегулированное правом.' },
+          { q: 'Юридическая ответственность — это…',
+            options: ['Моральное осуждение','Применение мер принуждения за нарушение норм права','Совесть','Обещание'],
+            correct: 1,
+            explain: 'Юридическая ответственность — реакция государства на правонарушение.' }
+        ]
+      },
+      {
+        title: 'Конституция РФ',
+        questions: [
+          { q: 'Конституция РФ была принята…',
+            options: ['12 июня 1991','12 декабря 1993','1 января 2000','4 ноября 1990'],
+            correct: 1,
+            explain: 'Конституция РФ принята на всенародном голосовании 12 декабря 1993 года.' },
+          { q: 'Что относится к основам конституционного строя РФ?',
+            options: ['Однопартийность','Признание человека высшей ценностью','Цензура','Отмена выборов'],
+            correct: 1,
+            explain: 'Ст. 2 Конституции РФ: человек, его права и свободы — высшая ценность.' },
+          { q: 'Кто является главой государства в РФ?',
+            options: ['Премьер-министр','Президент','Спикер Думы','Губернатор'],
+            correct: 1,
+            explain: 'Президент РФ — глава государства (ст. 80 Конституции).' },
+          { q: 'Федерация — это…',
+            options: ['Единое унитарное государство','Форма гос. устройства с субъектами','Монархия','Политический режим'],
+            correct: 1,
+            explain: 'Федерация — союзное государство, состоящее из субъектов.' }
+        ]
+      }
+    ]
+  }
+];
+
+/* ============================================================
+   СОСТОЯНИЕ ПРИЛОЖЕНИЯ + СОХРАНЕНИЕ
+   ============================================================ */
+const STORAGE_KEY = 'ege_society_v1';
+
+let state = {
+  animalId: null,
+  xp: 0,
+  completed: {},   // lessonKey -> лучший результат (кол-во правильных)
+  streak: 0,
+  lastVisit: null,
+  // временное состояние викторины:
+  quiz: null
+};
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) state = Object.assign(state, JSON.parse(raw));
+  } catch(e) { console.warn('Не удалось загрузить прогресс', e); }
+}
+
+/* ============================================================
+   УТИЛИТЫ
+   ============================================================ */
+function $(id) { return document.getElementById(id); }
+
+function showScreen(name) {
+  ['start','home','quiz','result'].forEach(s => {
+    $('screen-' + s).classList.toggle('hidden', s !== name);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function getStage(xp) {
+  let idx = 0;
+  for (let i = 0; i < STAGES.length; i++) {
+    if (xp >= STAGES[i].xp) idx = i;
+  }
+  return idx;
+}
+
+function getAnimal() {
+  return ANIMALS[state.animalId] || null;
+}
+
+function lessonKey(topicId, lessonIdx) {
+  return topicId + ':' + lessonIdx;
+}
+
+function updateStreak() {
+  const today = new Date().toDateString();
+  if (state.lastVisit === today) return;
+  const yesterday = new Date(Date.now() - 86400000).toDateString();
+  if (state.lastVisit === yesterday) state.streak += 1;
+  else state.streak = 1;
+  state.lastVisit = today;
+  save();
+}
+
+/* ============================================================
+   СТАРТОВЫЙ ЭКРАН — выбор животного
+   ============================================================ */
+function renderAnimalChooser() {
+  const grid = $('animal-grid');
+  grid.innerHTML = '';
+  Object.keys(ANIMALS).forEach(id => {
+    const a = ANIMALS[id];
+    const card = document.createElement('div');
+    card.className = 'animal-card';
+    card.innerHTML = `
+      <span class="emoji">${a.emoji[0]}</span>
+      <div class="name">${a.name}</div>
+      <div class="desc">${a.desc}</div>
+    `;
+    card.onclick = () => {
+      state.animalId = id;
+      state.xp = state.xp || 0;
+      save();
+      updateStreak();
+      showScreen('home');
+      renderHome();
+    };
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   ГЛАВНЫЙ ЭКРАН
+   ============================================================ */
+function renderHome() {
+  const a = getAnimal();
+  if (!a) { showScreen('start'); return; }
+
+  const stageIdx = getStage(state.xp);
+  const stage = STAGES[stageIdx];
+
+  // питомец
+  $('pet-emoji').textContent = a.emoji[stageIdx];
+  $('pet-emoji').style.fontSize = (60 * stage.scale) + 'px';
+  $('pet-emoji').style.filter = `drop-shadow(0 4px 12px ${a.color}80)`;
+  $('pet-name').textContent = a.name;
+  $('pet-stage').textContent = 'Стадия: ' + stage.label;
+
+  // прогресс до следующей стадии
+  const nextStage = STAGES[stageIdx + 1];
+  let pct = 100, xpText;
+  if (nextStage) {
+    const range = nextStage.xp - stage.xp;
+    const gained = state.xp - stage.xp;
+    pct = Math.min(100, (gained / range) * 100);
+    xpText = `${state.xp} / ${nextStage.xp} XP до «${nextStage.label}»`;
+  } else {
+    xpText = `${state.xp} XP — максимальная стадия!`;
+  }
+  $('pet-progress').style.width = pct + '%';
+  $('pet-xp').textContent = xpText;
+
+  // статистика
+  $('stat-streak').textContent = state.streak;
+  $('stat-xp').textContent = state.xp;
+  $('stat-lessons').textContent = Object.keys(state.completed).length;
+
+  // темы и уроки
+  const wrap = $('topics');
+  wrap.innerHTML = '';
+  TOPICS.forEach(topic => {
+    const tEl = document.createElement('div');
+    tEl.className = 'topic';
+    tEl.innerHTML = `
+      <div class="topic-head">
+        <span class="topic-icon">${topic.icon}</span>
+        <span class="topic-title">${topic.title}</span>
+      </div>
+      <div class="lessons"></div>
+    `;
+    const lessonsEl = tEl.querySelector('.lessons');
+    topic.lessons.forEach((lesson, idx) => {
+      const key = lessonKey(topic.id, idx);
+      const best = state.completed[key];
+      const done = best !== undefined;
+      const el = document.createElement('div');
+      el.className = 'lesson' + (done ? ' done' : '');
+      el.innerHTML = `
+        <div class="lesson-num">${done ? '✓' : idx + 1}</div>
+        <div class="lesson-title">${lesson.title}</div>
+        <div class="lesson-score">${done ? best + '/' + lesson.questions.length : ''}</div>
+      `;
+      el.onclick = () => startQuiz(topic.id, idx);
+      lessonsEl.appendChild(el);
+    });
+    wrap.appendChild(tEl);
+  });
+}
+
+/* ============================================================
+   ВИКТОРИНА
+   ============================================================ */
+function startQuiz(topicId, lessonIdx) {
+  const topic = TOPICS.find(t => t.id === topicId);
+  const lesson = topic.lessons[lessonIdx];
+  state.quiz = {
+    topicId, lessonIdx,
+    questions: lesson.questions,
+    current: 0,
+    correct: 0,
+    answered: false
+  };
+  showScreen('quiz');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = state.quiz;
+  const question = q.questions[q.current];
+  const total = q.questions.length;
+
+  $('quiz-count').textContent = (q.current + 1) + '/' + total;
+  $('quiz-progress').style.width = ((q.current) / total * 100) + '%';
+  $('quiz-q').textContent = question.q;
+
+  const opts = $('quiz-options');
+  opts.innerHTML = '';
+  question.options.forEach((text, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.textContent = text;
+    btn.onclick = () => answer(i);
+    opts.appendChild(btn);
+  });
+
+  $('quiz-explain').classList.add('hidden');
+  $('quiz-next').classList.add('hidden');
+  q.answered = false;
+}
+
+function answer(selected) {
+  const q = state.quiz;
+  if (q.answered) return;
+  q.answered = true;
+
+  const question = q.questions[q.current];
+  const opts = document.querySelectorAll('#quiz-options .option');
+
+  opts.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === question.correct) btn.classList.add('correct');
+    else if (i === selected) btn.classList.add('wrong');
+  });
+
+  if (selected === question.correct) q.correct++;
+
+  const ex = $('quiz-explain');
+  ex.textContent = '💡 ' + question.explain;
+  ex.classList.remove('hidden');
+
+  const nextBtn = $('quiz-next');
+  nextBtn.classList.remove('hidden');
+  nextBtn.textContent = (q.current === q.questions.length - 1) ? 'Завершить →' : 'Далее →';
+  nextBtn.onclick = nextQuestion;
+}
+
+function nextQuestion() {
+  const q = state.quiz;
+  if (q.current < q.questions.length - 1) {
+    q.current++;
+    renderQuestion();
+  } else {
+    finishQuiz();
+  }
+}
+
+function finishQuiz() {
+  const q = state.quiz;
+  const total = q.questions.length;
+  const gainedXP = q.correct * 10;
+  const oldStageIdx = getStage(state.xp);
+
+  // сохраняем результат (только если лучше предыдущего)
+  const key = lessonKey(q.topicId, q.lessonIdx);
+  const prev = state.completed[key] || 0;
+  if (q.correct > prev) state.completed[key] = q.correct;
+
+  state.xp += gainedXP;
+  save();
+
+  const newStageIdx = getStage(state.xp);
+
+  // экран результата
+  const pct = q.correct / total;
+  let emoji = '🎉', title = 'Отлично!';
+  if (pct < 0.5) { emoji = '😅'; title = 'Есть куда расти'; }
+  else if (pct < 0.8) { emoji = '👍'; title = 'Хороший результат!'; }
+  else if (pct === 1) { emoji = '🏆'; title = 'Идеально!'; }
+
+  $('result-emoji').textContent = emoji;
+  $('result-title').textContent = title;
+  $('result-sub').textContent = `Правильно ${q.correct} из ${total}. Заработано +${gainedXP} XP.`;
+  showScreen('result');
+
+  // если вырос уровень питомца — показать поздравление
+  if (newStageIdx > oldStageIdx) {
+    setTimeout(() => showLevelUp(newStageIdx), 500);
+  }
+}
+
+function showLevelUp(stageIdx) {
+  const a = getAnimal();
+  const stage = STAGES[stageIdx];
+  const div = document.createElement('div');
+  div.className = 'levelup';
+  div.innerHTML = `
+    <div class="levelup-card">
+      <div class="emoji">${a.emoji[stageIdx]}</div>
+      <h3>Новая стадия: ${stage.label}!</h3>
+      <p>Твой ${a.name.toLowerCase()} вырос. Продолжай в том же духе!</p>
+      <button class="btn-primary" style="margin:0">Ура!</button>
+    </div>
+  `;
+  div.querySelector('button').onclick = () => div.remove();
+  document.body.appendChild(div);
+}
+
+/* ============================================================
+   ОБРАБОТЧИКИ СОБЫТИЙ
+   ============================================================ */
+$('quiz-back').onclick = () => {
+  if (confirm('Выйти из урока? Прогресс не сохранится.')) {
+    showScreen('home');
+    renderHome();
+  }
+};
+
+$('result-next').onclick = () => {
+  showScreen('home');
+  renderHome();
+};
+
+$('change-pet').onclick = () => {
+  if (confirm('Сменить питомца? Прогресс XP сохранится, но питомец будет другим.')) {
+    state.animalId = null;
+    save();
+    showScreen('start');
+  }
+};
+
+$('reset-btn').onclick = () => {
+  if (confirm('Точно сбросить ВЕСЬ прогресс? Это действие нельзя отменить.')) {
+    localStorage.removeItem(STORAGE_KEY);
+    state = { animalId: null, xp: 0, completed: {}, streak: 0, lastVisit: null, quiz: null };
+    showScreen('start');
+  }
+};
+
+/* ============================================================
+   ИНИЦИАЛИЗАЦИЯ
+   ============================================================ */
+function init() {
+  load();
+  renderAnimalChooser();
+
+  if (state.animalId && ANIMALS[state.animalId]) {
+    updateStreak();
+    showScreen('home');
+    renderHome();
+  } else {
+    showScreen('start');
+  }
+}
+
+init();
+</script>
+</body>
+  </html>
