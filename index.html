@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>ЕГЭ Обществознание · Человек в обществе</title>
+<title>ЕГЭ Обществознание · Человек и общество</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   :root{
@@ -11,100 +11,65 @@
     --border:#e7e9f0; --primary:#6366f1; --primary2:#8b5cf6;
     --success:#10b981; --error:#ef4444; --warn:#f59e0b; --info:#3b82f6;
     --radius:18px; --shadow:0 4px 20px rgba(20,25,60,.06);
-    --shadow-lg:0 20px 50px rgba(20,25,60,.15);
   }
   [data-theme="dark"]{
     --bg:#0f1220; --card:#1a1f35; --text:#e8ebf5; --muted:#8a92ab;
     --border:#2a3050; --shadow:0 4px 20px rgba(0,0,0,.3);
-    --shadow-lg:0 20px 50px rgba(0,0,0,.5);
   }
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif;
-    background:var(--bg);color:var(--text);min-height:100vh;
-    transition:background .3s,color .3s;padding-bottom:80px;
-  }
+  body{font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif;
+    background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
   .app{max-width:820px;margin:0 auto;padding:16px}
-
-  /* --- Хедер --- */
-  .topbar{
-    display:flex;align-items:center;gap:12px;
-    background:var(--card);border-radius:var(--radius);
-    padding:12px 16px;box-shadow:var(--shadow);margin-bottom:14px;
-    position:sticky;top:8px;z-index:50;
-  }
-  .topbar .pet-mini{
-    width:44px;height:44px;border-radius:50%;
+  .topbar{display:flex;align-items:center;gap:12px;background:var(--card);
+    border-radius:var(--radius);padding:12px 16px;box-shadow:var(--shadow);
+    margin-bottom:14px;position:sticky;top:8px;z-index:50}
+  .pet-mini{width:44px;height:44px;border-radius:50%;
     background:linear-gradient(135deg,#fef3c7,#fde68a);
-    display:flex;align-items:center;justify-content:center;
-    font-size:26px;flex-shrink:0;
-  }
-  .topbar .info{flex:1;min-width:0}
-  .topbar .name{font-weight:700;font-size:14px}
-  .topbar .bar{height:6px;background:var(--border);border-radius:3px;margin-top:4px;overflow:hidden}
-  .topbar .bar div{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary2));
+    display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+  .info{flex:1;min-width:0}
+  .info .name{font-weight:700;font-size:14px}
+  .info .bar{height:6px;background:var(--border);border-radius:3px;margin-top:4px;overflow:hidden}
+  .info .bar div{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary2));
     border-radius:3px;transition:width .5s;width:0}
-  .topbar .icons{display:flex;gap:6px}
-  .icon-btn{
-    width:36px;height:36px;border-radius:10px;border:none;
-    background:var(--bg);cursor:pointer;font-size:17px;
-    display:flex;align-items:center;justify-content:center;
-    transition:all .2s;color:var(--text);
-  }
+  .icons{display:flex;gap:6px}
+  .icon-btn{width:36px;height:36px;border-radius:10px;border:none;background:var(--bg);
+    cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;
+    transition:all .2s;color:var(--text)}
   .icon-btn:hover{background:var(--border);transform:scale(1.08)}
   .icon-btn.off{opacity:.35}
-
-  /* --- Экраны --- */
   .screen{display:none;animation:fadeIn .35s ease}
   .screen.active{display:block}
   @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
-  .card{
-    background:var(--card);border-radius:var(--radius);padding:20px;
-    box-shadow:var(--shadow);margin-bottom:14px;
-  }
+  .card{background:var(--card);border-radius:var(--radius);padding:20px;
+    box-shadow:var(--shadow);margin-bottom:14px}
   h1{font-size:24px;margin-bottom:6px;letter-spacing:-.3px}
   h2{font-size:18px;margin-bottom:12px;letter-spacing:-.2px}
   .sub{color:var(--muted);font-size:14px;margin-bottom:18px;line-height:1.5}
-
-  /* --- Выбор питомца --- */
   .animal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-  .animal-card{
-    border:2px solid var(--border);border-radius:16px;padding:18px;text-align:center;
-    cursor:pointer;transition:all .2s;background:var(--bg);
-  }
+  .animal-card{border:2px solid var(--border);border-radius:16px;padding:18px;
+    text-align:center;cursor:pointer;transition:all .2s;background:var(--bg)}
   .animal-card:hover{border-color:var(--primary);transform:translateY(-3px);
     box-shadow:0 10px 25px rgba(99,102,241,.15)}
   .animal-card .emoji{font-size:52px;display:block;margin-bottom:8px;
     animation:breathe 3s ease-in-out infinite}
   .animal-card .name{font-weight:700;font-size:15px}
   .animal-card .desc{font-size:12px;color:var(--muted);margin-top:3px}
-
   @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-
-  /* --- Питомец --- */
-  .pet-hero{
-    display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  .pet-hero{display:flex;align-items:center;gap:18px;flex-wrap:wrap;
     background:linear-gradient(135deg,#fef3c7,#fde68a);
     border-radius:var(--radius);padding:20px;margin-bottom:14px;
-    position:relative;overflow:hidden;
-  }
-  .pet-hero::before{
-    content:'';position:absolute;top:-50%;right:-50%;
+    position:relative;overflow:hidden}
+  .pet-hero::before{content:'';position:absolute;top:-50%;right:-50%;
     width:200%;height:200%;
     background:radial-gradient(circle,rgba(255,255,255,.4),transparent 60%);
-    animation:shine 6s ease-in-out infinite;
-  }
+    animation:shine 6s ease-in-out infinite}
   @keyframes shine{0%,100%{transform:translate(-30%,-30%)}50%{transform:translate(-10%,-10%)}}
   .pet-hero>*{position:relative;z-index:1}
-  .pet-big{
-    width:120px;height:120px;border-radius:50%;
+  .pet-big{width:120px;height:120px;border-radius:50%;
     background:radial-gradient(circle at 30% 30%,#fff,#fef3c7);
     display:flex;align-items:center;justify-content:center;
     box-shadow:inset 0 0 25px rgba(251,191,36,.5),0 8px 20px rgba(0,0,0,.1);
-    flex-shrink:0;font-size:64px;
-    animation:breathe 4s ease-in-out infinite;
-    transition:font-size .5s cubic-bezier(.34,1.56,.64,1);
-  }
+    flex-shrink:0;font-size:64px;animation:breathe 4s ease-in-out infinite;
+    transition:font-size .5s cubic-bezier(.34,1.56,.64,1)}
   .pet-info{flex:1;min-width:180px}
   .pet-info .pname{font-size:20px;font-weight:800;color:#78350f}
   .pet-info .pstage{font-size:13px;color:#92400e;font-weight:700;margin:2px 0 10px}
@@ -112,175 +77,101 @@
   .pet-info .pbar div{height:100%;background:linear-gradient(90deg,#f59e0b,#ea580c);
     border-radius:4px;transition:width .7s cubic-bezier(.4,0,.2,1)}
   .pet-info .pxp{font-size:12px;color:#78350f;font-weight:600;margin-top:6px}
-
-  /* --- Статистика --- */
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
   .stat{background:var(--card);border-radius:14px;padding:12px 8px;text-align:center;
     box-shadow:var(--shadow)}
   .stat .em{font-size:18px;margin-bottom:2px;display:block}
   .stat b{font-size:18px;display:block;letter-spacing:-.5px}
-  .stat small{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
-
-  /* --- Табы --- */
-  .tabs{
-    display:flex;gap:4px;background:var(--card);border-radius:14px;
-    padding:4px;box-shadow:var(--shadow);margin-bottom:14px;
-  }
-  .tab{
-    flex:1;padding:10px 6px;border:none;background:transparent;
-    color:var(--muted);border-radius:10px;cursor:pointer;
-    font-weight:700;font-size:13px;font-family:inherit;
-    transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:2px;
-  }
+  .stat small{font-size:10px;color:var(--muted);text-transform:uppercase;
+    letter-spacing:.5px;font-weight:600}
+  .tabs{display:flex;gap:4px;background:var(--card);border-radius:14px;
+    padding:4px;box-shadow:var(--shadow);margin-bottom:14px}
+  .tab{flex:1;padding:10px 6px;border:none;background:transparent;color:var(--muted);
+    border-radius:10px;cursor:pointer;font-weight:700;font-size:13px;font-family:inherit;
+    transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:2px}
   .tab span{font-size:16px}
-  .tab.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;
-    box-shadow:0 4px 12px rgba(99,102,241,.3)}
+  .tab.active{background:linear-gradient(135deg,var(--primary),var(--primary2));
+    color:#fff;box-shadow:0 4px 12px rgba(99,102,241,.3)}
   .tab:hover:not(.active){color:var(--text)}
-
-  /* --- Темы (уроки) --- */
-  .topic{background:var(--card);border-radius:var(--radius);padding:16px;
-    margin-bottom:12px;box-shadow:var(--shadow)}
-  .topic-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-  .topic-head .ic{font-size:26px}
-  .topic-head .tt{font-weight:800;font-size:16px;flex:1}
-  .topic-head .cnt{font-size:12px;color:var(--muted);font-weight:700;
-    background:var(--bg);padding:4px 10px;border-radius:20px}
-  .lessons{display:flex;flex-direction:column;gap:7px}
-  .lesson{
-    display:flex;align-items:center;gap:12px;
-    padding:12px 14px;border-radius:12px;background:var(--bg);
-    cursor:pointer;transition:all .2s;border:2px solid transparent;
-  }
-  .lesson:hover{background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.2);
-    transform:translateX(4px)}
-  .lesson.done{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3)}
-  .lesson-num{
-    width:30px;height:30px;border-radius:50%;background:var(--card);
-    display:flex;align-items:center;justify-content:center;
-    font-weight:800;font-size:13px;flex-shrink:0;color:var(--primary);
-  }
-  .lesson.done .lesson-num{background:var(--success);color:#fff}
-  .lesson-title{flex:1;font-weight:600;font-size:13.5px;line-height:1.3}
-  .lesson-score{font-size:11px;color:var(--muted);font-weight:700}
-
-  /* --- Билеты --- */
-  .bilet-card{background:var(--card);border-radius:var(--radius);padding:20px;
+  .block-head{display:flex;align-items:center;gap:12px;background:var(--card);
+    border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .block-head .ic{font-size:26px}
+  .block-head .tt{flex:1}
+  .block-head .tt b{font-size:16px;display:block}
+  .block-head .tt small{font-size:12px;color:var(--muted)}
+  .block-head .cnt{font-size:13px;font-weight:800;color:var(--primary);
+    background:rgba(99,102,241,.1);padding:6px 12px;border-radius:20px}
+  .bilet-row{background:var(--card);border-radius:14px;padding:14px 16px;
+    margin-bottom:8px;box-shadow:var(--shadow);cursor:pointer;transition:all .2s;
+    display:flex;align-items:center;gap:12px;border-left:4px solid var(--border)}
+  .bilet-row:hover{transform:translateX(4px);box-shadow:0 8px 20px rgba(99,102,241,.15);
+    border-left-color:var(--primary)}
+  .bilet-row.done{border-left-color:var(--success);
+    background:linear-gradient(135deg,rgba(16,185,129,.05),transparent)}
+  .bilet-row .num{width:36px;height:36px;border-radius:50%;
+    background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;
+    font-size:14px;flex-shrink:0}
+  .bilet-row.done .num{background:var(--success)}
+  .bilet-row .body{flex:1;min-width:0}
+  .bilet-row .body .title{font-weight:700;font-size:14.5px;margin-bottom:3px}
+  .bilet-row .body .meta{font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+  .bilet-row .body .meta span{display:inline-flex;align-items:center;gap:4px}
+  .bilet-row .arrow{font-size:18px;color:var(--muted);flex-shrink:0}
+  .study-card{background:var(--card);border-radius:var(--radius);padding:18px;
     margin-bottom:14px;box-shadow:var(--shadow)}
-  .bilet-head{display:flex;align-items:center;justify-content:space-between;
-    margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-  .bilet-head h3{font-size:17px;font-weight:800}
-  .bilet-head .badge{font-size:11px;font-weight:700;padding:4px 10px;
-    border-radius:20px;background:var(--bg);color:var(--muted)}
-  .bilet-head .badge.done{background:rgba(16,185,129,.15);color:var(--success)}
-  .qa{margin-bottom:16px}
-  .qa:last-child{margin-bottom:0}
-  .qa .q{
-    display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;
-    font-weight:700;font-size:14px;line-height:1.4;
-  }
-  .qa .q .num{
-    background:linear-gradient(135deg,var(--primary),var(--primary2));
-    color:#fff;width:22px;height:22px;border-radius:7px;
-    display:flex;align-items:center;justify-content:center;
-    font-size:11px;flex-shrink:0;margin-top:1px;
-  }
-  .qa .a{
-    background:var(--bg);border-radius:12px;padding:12px 14px;
-    font-size:13.5px;line-height:1.55;color:var(--text);
-    border-left:3px solid var(--primary);
-    display:none;
-  }
-  .qa .a.show{display:block;animation:slideDown .3s ease}
-  @keyframes slideDown{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
-  .qa .a ul{list-style:none;padding:0}
-  .qa .a li{padding-left:14px;position:relative;margin-bottom:5px}
-  .qa .a li:last-child{margin-bottom:0}
-  .qa .a li::before{content:'•';position:absolute;left:0;color:var(--primary);font-weight:900}
-  .toggle-btn{
-    margin-top:8px;padding:8px 14px;border-radius:10px;
-    border:1.5px solid var(--border);background:transparent;
-    color:var(--primary);font-weight:700;font-size:12px;
-    cursor:pointer;font-family:inherit;transition:all .2s;
-  }
-  .toggle-btn:hover{background:rgba(99,102,241,.08);border-color:var(--primary)}
-
-  /* --- Достижения --- */
-  .ach-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-  .ach{
-    background:var(--card);border-radius:14px;padding:14px;
-    display:flex;gap:12px;align-items:center;
-    box-shadow:var(--shadow);border:2px solid transparent;
-    transition:all .2s;
-  }
-  .ach.locked{opacity:.5;filter:grayscale(1)}
-  .ach.unlocked{border-color:var(--success);
-    background:linear-gradient(135deg,rgba(16,185,129,.06),rgba(16,185,129,.02))}
-  .ach .aic{font-size:28px;flex-shrink:0}
-  .ach .ainfo{min-width:0}
-  .ach .atitle{font-weight:800;font-size:13px;margin-bottom:2px}
-  .ach .adesc{font-size:11px;color:var(--muted);line-height:1.3}
-
-  /* --- Экзамен --- */
-  .exam-timer{
-    display:flex;align-items:center;justify-content:center;gap:10px;
-    background:var(--card);padding:16px;border-radius:var(--radius);
-    box-shadow:var(--shadow);margin-bottom:14px;
-  }
-  .exam-timer .t{font-size:32px;font-weight:800;font-variant-numeric:tabular-nums;
-    letter-spacing:-1px;color:var(--primary)}
-  .exam-timer .t.warn{color:var(--error);animation:pulse 1s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-
-  /* --- Квиз --- */
+  .study-block{margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+  .study-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .study-block .type{display:inline-block;font-size:11px;font-weight:800;
+    padding:3px 10px;border-radius:20px;margin-bottom:8px;letter-spacing:.3px;
+    text-transform:uppercase}
+  .type.признаки{background:rgba(99,102,241,.15);color:#6366f1}
+  .type.теория{background:rgba(59,130,246,.15);color:#3b82f6}
+  .type.реалии{background:rgba(239,68,68,.15);color:#ef4444}
+  .type.обоснование{background:rgba(245,158,11,.15);color:#f59e0b}
+  .type.план{background:rgba(16,185,129,.15);color:#10b981}
+  .type.науки{background:rgba(139,92,246,.15);color:#8b5cf6}
+  .study-block .q{font-weight:700;font-size:15px;margin-bottom:10px;line-height:1.4}
+  .study-block ul{list-style:none;padding:0}
+  .study-block li{padding:8px 12px 8px 28px;position:relative;margin-bottom:5px;
+    background:var(--bg);border-radius:10px;font-size:13.5px;line-height:1.5}
+  .study-block li::before{content:'•';position:absolute;left:12px;
+    color:var(--primary);font-weight:900;font-size:16px}
   .quiz-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
   .quiz-header .bar{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden}
-  .quiz-header .bar div{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary2));
+  .quiz-header .bar div{height:100%;
+    background:linear-gradient(90deg,var(--primary),var(--primary2));
     border-radius:4px;transition:width .3s;width:0}
-  .quiz-header .cnt{font-size:13px;color:var(--muted);font-weight:700;min-width:40px;text-align:right}
-  .quiz-q{font-size:19px;line-height:1.4;margin-bottom:18px;font-weight:700;letter-spacing:-.2px}
+  .quiz-header .cnt{font-size:13px;color:var(--muted);font-weight:700;
+    min-width:40px;text-align:right}
+  .quiz-q{font-size:18px;line-height:1.4;margin-bottom:18px;font-weight:700;letter-spacing:-.2px}
   .options{display:flex;flex-direction:column;gap:10px}
-  .option{
-    padding:14px 16px;border-radius:12px;border:2px solid var(--border);
+  .option{padding:14px 16px;border-radius:12px;border:2px solid var(--border);
     background:var(--card);cursor:pointer;font-size:15px;text-align:left;
-    transition:all .15s;font-family:inherit;color:var(--text);
-    font-weight:500;line-height:1.4;
-  }
-  .option:hover:not(:disabled){border-color:var(--primary);background:rgba(99,102,241,.05);
-    transform:translateX(4px)}
+    transition:all .15s;font-family:inherit;color:var(--text);font-weight:500;line-height:1.4}
+  .option:hover:not(:disabled){border-color:var(--primary);
+    background:rgba(99,102,241,.05);transform:translateX(4px)}
   .option:disabled{cursor:default}
   .option.correct{border-color:var(--success);background:rgba(16,185,129,.12);
     font-weight:700;color:var(--success)}
   .option.wrong{border-color:var(--error);background:rgba(239,68,68,.1);
     font-weight:700;color:var(--error)}
-  .explain{
-    margin-top:14px;padding:14px;border-radius:12px;
+  .explain{margin-top:14px;padding:14px;border-radius:12px;
     background:rgba(245,158,11,.1);border-left:4px solid var(--warn);
-    font-size:13.5px;line-height:1.55;
-  }
+    font-size:13.5px;line-height:1.55}
   .explain.hidden{display:none}
-
-  /* --- Кнопки --- */
-  .btn{
-    padding:13px 20px;border-radius:12px;border:none;
+  .btn{padding:13px 20px;border-radius:12px;border:none;
     background:linear-gradient(135deg,var(--primary),var(--primary2));
-    color:#fff;font-weight:700;font-size:15px;cursor:pointer;
-    transition:all .2s;font-family:inherit;
-    box-shadow:0 4px 15px rgba(99,102,241,.3);
-    display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  }
+    color:#fff;font-weight:700;font-size:15px;cursor:pointer;transition:all .2s;
+    font-family:inherit;box-shadow:0 4px 15px rgba(99,102,241,.3);
+    display:inline-flex;align-items:center;justify-content:center;gap:8px}
   .btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(99,102,241,.4)}
-  .btn:active{transform:translateY(0)}
   .btn-full{width:100%;margin-top:16px}
-  .btn-sm{padding:9px 14px;font-size:13px;border-radius:10px}
-  .btn-ghost{
-    background:var(--bg);color:var(--text);box-shadow:none;
-    border:1.5px solid var(--border);
-  }
+  .btn-ghost{background:var(--bg);color:var(--text);box-shadow:none;
+    border:1.5px solid var(--border)}
   .btn-ghost:hover{background:var(--border);box-shadow:none}
   .btn-danger{background:linear-gradient(135deg,#ef4444,#dc2626);
     box-shadow:0 4px 15px rgba(239,68,68,.3)}
-
-  /* --- Результат --- */
   .result{text-align:center;padding:32px 20px}
   .result .em{font-size:72px;margin-bottom:8px;display:inline-block;
     animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
@@ -291,58 +182,50 @@
   .result .stats-inline div{text-align:center}
   .result .stats-inline b{font-size:22px;display:block;color:var(--primary)}
   .result .stats-inline small{font-size:11px;color:var(--muted);text-transform:uppercase}
-
-  /* --- Level up modal --- */
-  .overlay{
-    position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);
-    display:flex;align-items:center;justify-content:center;
-    z-index:200;animation:fadeIn .25s;padding:20px;
-  }
-  .overlay .modal{
-    background:var(--card);border-radius:24px;padding:32px 24px;
-    text-align:center;max-width:340px;width:100%;
-    animation:pop .45s cubic-bezier(.34,1.56,.64,1);
-  }
-  .overlay .modal .em{font-size:80px;margin-bottom:12px;
-    display:inline-block;animation:breathe 1.5s infinite}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);
+    display:flex;align-items:center;justify-content:center;z-index:200;
+    animation:fadeIn .25s;padding:20px}
+  .overlay .modal{background:var(--card);border-radius:24px;padding:32px 24px;
+    text-align:center;max-width:340px;width:100%;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+  .overlay .modal .em{font-size:80px;margin-bottom:12px;display:inline-block;
+    animation:breathe 1.5s infinite}
   .overlay .modal h3{font-size:20px;margin-bottom:6px;color:var(--primary)}
   .overlay .modal p{color:var(--muted);font-size:14px;line-height:1.5;margin-bottom:20px}
-
-  /* --- Пустое состояние --- */
-  .empty{
-    text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;
-  }
-  .empty .em{font-size:48px;margin-bottom:12px;opacity:.5;display:block}
-
-  /* --- Настройки --- */
-  .setting-row{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:14px 0;border-bottom:1px solid var(--border);
-  }
+  .ach-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .ach{background:var(--card);border-radius:14px;padding:14px;display:flex;gap:12px;
+    align-items:center;box-shadow:var(--shadow);border:2px solid transparent;transition:all .2s}
+  .ach.locked{opacity:.5;filter:grayscale(1)}
+  .ach.unlocked{border-color:var(--success);
+    background:linear-gradient(135deg,rgba(16,185,129,.06),rgba(16,185,129,.02))}
+  .ach .aic{font-size:28px;flex-shrink:0}
+  .ach .ainfo{min-width:0}
+  .ach .atitle{font-weight:800;font-size:13px;margin-bottom:2px}
+  .ach .adesc{font-size:11px;color:var(--muted);line-height:1.3}
+  .exam-timer{display:flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--card);padding:16px;border-radius:var(--radius);
+    box-shadow:var(--shadow);margin-bottom:14px}
+  .exam-timer .t{font-size:32px;font-weight:800;font-variant-numeric:tabular-nums;
+    letter-spacing:-1px;color:var(--primary)}
+  .exam-timer .t.warn{color:var(--error);animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+  .setting-row{display:flex;align-items:center;justify-content:space-between;
+    padding:14px 0;border-bottom:1px solid var(--border)}
   .setting-row:last-child{border-bottom:none}
   .setting-row .lbl{font-weight:600;font-size:14px}
   .setting-row .sub{font-size:12px;color:var(--muted);margin-top:2px}
-  .switch{
-    width:46px;height:26px;border-radius:14px;background:var(--border);
-    position:relative;cursor:pointer;transition:background .2s;border:none;
-  }
+  .switch{width:46px;height:26px;border-radius:14px;background:var(--border);
+    position:relative;cursor:pointer;transition:background .2s;border:none}
   .switch.on{background:var(--primary)}
-  .switch::after{
-    content:'';position:absolute;top:3px;left:3px;
-    width:20px;height:20px;border-radius:50%;background:#fff;
-    transition:transform .2s;box-shadow:0 2px 4px rgba(0,0,0,.2);
-  }
+  .switch::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;
+    border-radius:50%;background:#fff;transition:transform .2s;
+    box-shadow:0 2px 4px rgba(0,0,0,.2)}
   .switch.on::after{transform:translateX(20px)}
-
-  /* --- Прогресс по темам --- */
-  .topic-progress{
-    display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;
-  }
-  .topic-progress .dot{
-    flex:1;min-width:20px;height:6px;border-radius:3px;background:var(--border);
-  }
-  .topic-progress .dot.done{background:var(--success)}
-
+  .back-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .back-row .back-btn{width:38px;height:38px;border-radius:12px;border:none;
+    background:var(--card);cursor:pointer;font-size:18px;box-shadow:var(--shadow);
+    color:var(--text);display:flex;align-items:center;justify-content:center}
+  .back-row .back-btn:hover{background:var(--border)}
+  .back-row .title{flex:1;font-weight:800;font-size:17px}
   @media (max-width:520px){
     .stats{grid-template-columns:repeat(2,1fr)}
     .animal-grid{gap:8px}
@@ -355,7 +238,6 @@
 <body>
 <div class="app">
 
-  <!-- ============ ХЕДЕР ============ -->
   <div class="topbar" id="topbar" style="display:none">
     <div class="pet-mini" id="petMini">🐱</div>
     <div class="info">
@@ -363,21 +245,19 @@
       <div class="bar"><div id="topProgress"></div></div>
     </div>
     <div class="icons">
-      <button class="icon-btn" id="soundBtn" title="Звук">🔊</button>
-      <button class="icon-btn" id="themeBtn" title="Тема">🌙</button>
+      <button class="icon-btn" id="soundBtn">🔊</button>
+      <button class="icon-btn" id="themeBtn">🌙</button>
     </div>
   </div>
 
-  <!-- ============ ЭКРАН: ВЫБОР ПИТОМЦА ============ -->
   <div id="screen-start" class="screen active">
     <div class="card">
       <h1>🐾 Выбери питомца</h1>
-      <p class="sub">Он растёт вместе с твоими знаниями. Чем больше XP — тем сильнее и мудрее питомец.</p>
+      <p class="sub">Он растёт вместе с твоими знаниями. Чем больше XP — тем сильнее питомец.</p>
       <div class="animal-grid" id="animalGrid"></div>
     </div>
   </div>
 
-  <!-- ============ ЭКРАН: ГЛАВНАЯ ============ -->
   <div id="screen-home" class="screen">
     <div class="pet-hero">
       <div class="pet-big" id="petBig">🐱</div>
@@ -398,20 +278,28 @@
 
     <div class="tabs">
       <button class="tab active" data-tab="lessons"><span>📚</span>Уроки</button>
-      <button class="tab" data-tab="bilety"><span>📖</span>Билеты</button>
       <button class="tab" data-tab="exam"><span>⏱️</span>Экзамен</button>
       <button class="tab" data-tab="ach"><span>🏆</span>Награды</button>
       <button class="tab" data-tab="settings"><span>⚙️</span>Ещё</button>
     </div>
 
     <div id="tab-lessons" class="tab-content"></div>
-    <div id="tab-bilety" class="tab-content" style="display:none"></div>
     <div id="tab-exam" class="tab-content" style="display:none"></div>
     <div id="tab-ach" class="tab-content" style="display:none"></div>
     <div id="tab-settings" class="tab-content" style="display:none"></div>
   </div>
 
-  <!-- ============ ЭКРАН: КВИЗ ============ -->
+  <!-- ЭКРАН ТЕОРИИ -->
+  <div id="screen-study" class="screen">
+    <div class="back-row">
+      <button class="back-btn" id="studyBack">←</button>
+      <div class="title" id="studyTitle">Билет 1</div>
+    </div>
+    <div id="studyContent"></div>
+    <button class="btn btn-full" id="studyStartQuiz">🎯 Пройти квиз по билету</button>
+  </div>
+
+  <!-- ЭКРАН КВИЗА -->
   <div id="screen-quiz" class="screen">
     <div class="card">
       <div class="quiz-header">
@@ -426,7 +314,6 @@
     </div>
   </div>
 
-  <!-- ============ ЭКРАН: РЕЗУЛЬТАТ ============ -->
   <div id="screen-result" class="screen">
     <div class="card result">
       <div class="em" id="resultEm">🎉</div>
@@ -441,428 +328,510 @@
 
 <script>
 /* ============================================================
-   ЖИВОТНЫЕ (6 штук, 5 стадий роста)
+   ЖИВОТНЫЕ
    ============================================================ */
 const ANIMALS = {
-  cat:    { name:'Кот',    desc:'Любопытный и хитрый',        emoji:['🐱','🐈','🐈‍⬛','🦁','🐯'], color:'#f59e0b' },
-  dog:    { name:'Пёс',    desc:'Верный и настойчивый',       emoji:['🐶','🐕','🐕‍🦺','🐺','🦮'], color:'#8b5cf6' },
-  owl:    { name:'Сова',   desc:'Мудрая и внимательная',      emoji:['🥚','🐣','🐥','🦉','🦅'], color:'#3b82f6' },
-  dragon: { name:'Дракон', desc:'Растёт в силе и знаниях',    emoji:['🥚','🦎','🐊','🐉','🐲'], color:'#ef4444' },
-  fox:    { name:'Лис',    desc:'Сообразительный и быстрый',  emoji:['🦊','🐺','🐕','🐆','🐅'], color:'#f97316' },
-  panda:  { name:'Панда',  desc:'Спокойная и усидчивая',      emoji:['🥚','🐻','🐼','🐨','🦣'], color:'#10b981' }
+  cat:    { name:'Кот',    desc:'Любопытный и хитрый',       emoji:['🐱','🐈','🐈‍⬛','🦁','🐯'] },
+  dog:    { name:'Пёс',    desc:'Верный и настойчивый',      emoji:['🐶','🐕','🐕‍🦺','🐺','🦮'] },
+  owl:    { name:'Сова',   desc:'Мудрая и внимательная',     emoji:['🥚','🐣','🐥','🦉','🦅'] },
+  dragon: { name:'Дракон', desc:'Растёт в силе и знаниях',   emoji:['🥚','🦎','🐊','🐉','🐲'] },
+  fox:    { name:'Лис',    desc:'Сообразительный и быстрый', emoji:['🦊','🐺','🐕','🐆','🐅'] },
+  panda:  { name:'Панда',  desc:'Спокойная и усидчивая',     emoji:['🥚','🐻','🐼','🐨','🦣'] }
 };
-
 const STAGES = [
-  { xp:0,    label:'Малыш',     scale:1.00 },
-  { xp:100,  label:'Растёт',    scale:1.12 },
-  { xp:300,  label:'Юный',      scale:1.24 },
-  { xp:700,  label:'Взрослый',  scale:1.36 },
-  { xp:1500, label:'Мудрый',    scale:1.50 }
+  { xp:0,    label:'Малыш',    scale:1.00 },
+  { xp:100,  label:'Растёт',   scale:1.12 },
+  { xp:300,  label:'Юный',     scale:1.24 },
+  { xp:700,  label:'Взрослый', scale:1.36 },
+  { xp:1500, label:'Мудрый',   scale:1.50 }
 ];
 
 /* ============================================================
-   КОНТЕНТ: БИЛЕТЫ (из PDF)
-   Каждый билет = список Q&A блоков
+   БИЛЕТЫ ЧвО — теперь это УРОКИ игры
+   Каждый билет = теория (blocks) + квиз (questions)
    ============================================================ */
-const BILETY = [
+const CHVO = [
   {
-    id: 1, title: 'Билет 1', topic: 'society',
+    id: 1, title: 'Билет 1',
+    icon: '🧠',
+    short: 'Личность · истина · деятельность · глобализация',
     blocks: [
-      { type:'Признаки', q:'Назовите признаки личности',
-        a:['совокупность социально значимых качеств',
-           'формируется и развивается в процессе социализации',
-           'субъект социальных отношений и сознательной деятельности',
-           'наличие собственных взглядов, принципов и убеждений',
-           'отвечает за собственные действия'] },
-      { type:'Теория', q:'Виды истины и примеры',
-        a:['Абсолютная — полное, исчерпывающее знание: 2 + 2 = 4; «Все люди смертны»',
-           'Относительная — верное, но ограниченное знание, уточняется со временем: раньше считали Землю плоской; в XIX в. атом считали неделимым'] },
-      { type:'Теория', q:'Ведущие виды деятельности и структура',
-        a:['Ведущие виды: игра, общение, учение, труд',
-           'Структура: субъект, объект, мотив, цель, средства, действия, результат',
-           'Пример: Алиса готовится к ЕГЭ; мотив — получить профессию, цель — сдать на высокий балл'] },
-      { type:'Российские реалии', q:'Три отечественных учёных (все сферы)',
-        a:['Ж. И. Алфёров (физика) — многослойные полупроводниковые структуры, Нобелевская премия 2000 г.',
-           'Г. Я. Перельман (математика) — доказал гипотезу Пуанкаре',
-           'А. Р. Оганов (химия) — алгоритм предсказания кристаллической структуры',
-           'Д. М. Чудаков (биология) — светящиеся белки',
-           'А. А. Зализняк (лингвистика) — «Древненовгородский диалект»',
-           'В. Л. Янин (история) — комплексное изучение средневекового Новгорода'] },
-      { type:'Обоснование', q:'Глобализация как противоречивый процесс',
-        a:['Глобализация сближает государства и культуры, развивает экономику, туризм, распространяет науку — больше возможностей для развития',
-           'Но приходят ТНК, отечественным производителям трудно конкурировать, страны становятся зависимыми',
-           'Массовая культура и единые стандарты ведут к утрате особенностей национальных культур, растёт цифровое неравенство',
-           'Вывод: у глобализации есть и плюсы, и минусы — она противоречива'] },
-      { type:'План', q:'Сложный план по теме «Духовная культура»',
-        a:['1. Формы духовной культуры: а) наука; б) искусство; в) религия; г) мораль',
-           '2. Институты духовной культуры: а) школы и вузы; б) НИИ; в) религиозные организации',
-           '3. Особенности духовной культуры: а) долговечность ценностей; б) безграничность потребностей; в) отражение личности автора',
-           '4. Функции духовной культуры: а) познавательная; б) регулятивная; в) социализирующая; г) коммуникативная',
-           '5. Традиционные ценности российского общества: а) патриотизм; б) гуманизм; в) крепкая семья; г) историческая память',
-           '6. Структурные элементы: а) знания; б) нормы; в) ценности; г) убеждения'] },
-      { type:'Виды наук', q:'Классифицируйте: почвоведение, кибернетика, антропология',
-        a:['почвоведение — естественная',
-           'кибернетика — точная и техническая',
-           'антропология — социально-гуманитарная'] }
+      { type:'признаки', q:'Признаки личности', a:[
+        'совокупность социально значимых качеств',
+        'формируется в процессе социализации',
+        'субъект социальных отношений и сознательной деятельности',
+        'собственные взгляды, принципы, убеждения',
+        'отвечает за собственные действия' ]},
+      { type:'теория', q:'Виды истины', a:[
+        'Абсолютная — полное, исчерпывающее знание: 2 + 2 = 4',
+        'Относительная — верное, но ограниченное знание, уточняется: раньше считали Землю плоской' ]},
+      { type:'теория', q:'Виды деятельности и структура', a:[
+        'Ведущие виды: игра, общение, учение, труд',
+        'Структура: субъект, объект, мотив, цель, средства, действия, результат' ]},
+      { type:'реалии', q:'Отечественные учёные', a:[
+        'Ж. И. Алфёров (физика) — полупроводниковые структуры, Нобелевская премия 2000',
+        'Г. Я. Перельман (математика) — доказал гипотезу Пуанкаре',
+        'А. Р. Оганов (химия) — алгоритм предсказания кристаллических структур',
+        'Д. М. Чудаков (биология) — светящиеся белки',
+        'А. А. Зализняк (лингвистика) — «Древненовгородский диалект»',
+        'В. Л. Янин (история) — средневековый Новгород' ]},
+      { type:'обоснование', q:'Глобализация как противоречивый процесс', a:[
+        'Плюсы: сближает государства, развивает экономику и туризм, распространяет науку',
+        'Минусы: ТНК давят местных производителей; страны становятся зависимыми',
+        'Массовая культура ведёт к утрате национальных особенностей, растёт цифровое неравенство',
+        'Вывод: у глобализации есть и плюсы, и минусы — она противоречива' ]},
+      { type:'план', q:'Сложный план «Духовная культура»', a:[
+        '1. Формы: наука, искусство, религия, мораль',
+        '2. Институты: школы, вузы, НИИ, религиозные организации',
+        '3. Особенности: долговечность ценностей, безграничность потребностей',
+        '4. Функции: познавательная, регулятивная, социализирующая, коммуникативная',
+        '5. Традиционные ценности РФ: патриотизм, гуманизм, семья, историческая память',
+        '6. Структура: знания, нормы, ценности, убеждения' ]}
+    ],
+    questions: [
+      { q:'Что из перечисленного НЕ является признаком личности?',
+        options:['Совокупность социально значимых качеств','Формируется в процессе социализации','Наличие врождённых инстинктов','Отвечает за собственные действия'],
+        correct:2, explain:'Инстинкты — биологическая основа, они есть и у животных. Личность — социальное качество.' },
+      { q:'Чем абсолютная истина отличается от относительной?',
+        options:['Абсолютная зависит от мнения','Абсолютная — полное знание, не требующее уточнений','Относительная всегда ложна','Они одинаковы'],
+        correct:1, explain:'Абсолютная истина — исчерпывающее знание. Относительная — верное, но неполное, уточняется со временем.' },
+      { q:'Какой из перечисленных видов деятельности НЕ является ведущим?',
+        options:['Игра','Общение','Учение','Производство'],
+        correct:3, explain:'Ведущие виды деятельности: игра, общение, учение, труд. «Производство» — не из этого списка.' },
+      { q:'Какой элемент НЕ входит в структуру деятельности?',
+        options:['Субъект','Цель','Интуиция','Результат'],
+        correct:2, explain:'Структура: субъект, объект, мотив, цель, средства, действия, результат. Интуиции здесь нет.' },
+      { q:'Кто из российских учёных доказал гипотезу Пуанкаре?',
+        options:['Ж. И. Алфёров','Г. Я. Перельман','А. Р. Оганов','В. Л. Янин'],
+        correct:1, explain:'Григорий Перельман — математик, доказал гипотезу Пуанкаре.' },
+      { q:'Какое последствие глобализации является отрицательным?',
+        options:['Развитие мировой экономики','Распространение достижений науки','Утрата национальных культур','Развитие туризма'],
+        correct:2, explain:'Массовая культура ведёт к утрате особенностей национальных культур.' }
     ]
   },
   {
-    id: 2, title: 'Билет 2', topic: 'society',
+    id: 2, title: 'Билет 2',
+    icon: '🎨',
+    short: 'Деятельность · искусство · истина · экология',
     blocks: [
-      { type:'Признаки', q:'Три признака понятия «деятельность»',
-        a:['сознательный характер',
-           'целенаправленный характер',
-           'продуктивный и творческий характер',
-           'преобразующий характер',
-           'общественный характер',
-           'свойственна только человеку'] },
-      { type:'Теория', q:'Функции искусства и примеры (две)',
-        a:['Эстетическая: Дмитрий был поражён красотой «Лунной сонаты» Бетховена и стал чаще слушать классику',
-           'Воспитательная: после фильма «В бой идут одни старики» Арсений проникся уважением к подвигу советских лётчиков',
-           'Познавательная: читая «Войну и мир», Наталья узнала о быте русского дворянства XIX в.',
-           'Коммуникативная: после «Ревизора» школьники обсудили героев',
-           'Ценностно-ориентирующая: после «Судьбы человека» Арсений понял важность достоинства',
-           'Компенсаторная: после трудного дня Арсений послушал музыку и успокоился'] },
-      { type:'Теория', q:'Свойства и критерии истины',
-        a:['Свойства (СОКИ): объективность, конкретность, историчность — «какая истина?»',
-           'Критерии: практика (главный), логичность, соответствие научным законам — «как проверить?»',
-           'Пример: Арсений капнул уксус на мел — пузырьки газа подтвердили знание практикой'] },
-      { type:'Российские реалии', q:'Правила экологически ответственного поведения',
-        a:['раздельно собирать мусор',
-           'сдавать батарейки и технику на переработку',
-           'экономить воду и электроэнергию',
-           'не оставлять мусор на природе, не жечь костры в запрещённых местах',
-           'участвовать в субботниках и посадке деревьев',
-           'чаще пользоваться общественным транспортом и велосипедом'] },
-      { type:'Обоснование', q:'Значимость социально-гуманитарных наук',
-        a:['Соц-гум науки изучают человека и общество; гуманизация — признание человека высшей ценностью',
-           'Эти науки объясняют общественные процессы и выявляют проблемы, помогая государству разрабатывать меры поддержки',
-           'Правоведение помогает совершенствовать законы и защиту прав человека',
-           'История и культурология сохраняют наследие и передают ценности уважения к человеку',
-           'Вывод: соц-гум науки способствуют гуманизации общества'] },
-      { type:'План', q:'Сложный план по теме «Наука»',
-        a:['1. Особенности науки: а) стремление к объективности; б) проверяемость; в) рациональность; г) системность',
-           '2. Структура науки как соц. института: а) сообщество учёных; б) научные учреждения; в) нормы и правила',
-           '3. Функции науки: а) прогностическая; б) познавательная; в) мировоззренческая; г) производственная',
-           '4. Уровни научного познания: а) эмпирический; б) теоретический',
-           '5. Методы: а) наблюдение; б) описание; в) классификация; г) эксперимент; д) гипотезы; е) моделирование'] },
-      { type:'Виды наук', q:'Классифицируйте: искусствоведение, радиобиология, геомеханика',
-        a:['искусствоведение — социально-гуманитарная',
-           'радиобиология — естественная',
-           'геомеханика — точная и техническая'] }
+      { type:'признаки', q:'Признаки деятельности', a:[
+        'сознательный характер',
+        'целенаправленный характер',
+        'продуктивный и творческий характер',
+        'преобразующий характер',
+        'общественный характер' ]},
+      { type:'теория', q:'Функции искусства и примеры', a:[
+        'Эстетическая: Дмитрий поражён «Лунной сонатой» Бетховена',
+        'Воспитательная: после фильма «В бой идут одни старики» Арсений проникся уважением к подвигу',
+        'Познавательная: «Война и мир» рассказала о быте дворян XIX в.',
+        'Коммуникативная: после «Ревизора» обсудили героев',
+        'Ценностно-ориентирующая: «Судьба человека» — важность достоинства',
+        'Компенсаторная: музыка успокаивает после трудного дня' ]},
+      { type:'теория', q:'Свойства и критерии истины', a:[
+        'Свойства (СОКИ): объективность, конкретность, историчность',
+        'Критерии: практика (главный), логичность, соответствие научным законам',
+        'Пример: уксус капнули на мел — пошли пузырьки, знание подтверждено практикой' ]},
+      { type:'реалии', q:'Правила экологически ответственного поведения', a:[
+        'раздельно собирать мусор',
+        'сдавать батарейки и технику на переработку',
+        'экономить воду и электроэнергию',
+        'не оставлять мусор на природе',
+        'участвовать в субботниках и посадке деревьев',
+        'чаще пользоваться общественным транспортом и велосипедом' ]},
+      { type:'обоснование', q:'Значимость соц-гум наук для гуманизации', a:[
+        'Соц-гум науки изучают человека и общество; гуманизация — человек высшая ценность',
+        'Выявляют общественные проблемы, помогают государству разрабатывать меры поддержки',
+        'Правоведение совершенствует законы и защиту прав',
+        'История и культурология сохраняют наследие',
+        'Вывод: соц-гум науки способствуют гуманизации общества' ]},
+      { type:'план', q:'Сложный план «Наука»', a:[
+        '1. Особенности: объективность, проверяемость, рациональность, системность',
+        '2. Структура как института: сообщество учёных, учреждения, нормы',
+        '3. Функции: прогностическая, познавательная, мировоззренческая, производственная',
+        '4. Уровни: эмпирический и теоретический',
+        '5. Методы: наблюдение, описание, классификация, эксперимент, гипотезы, моделирование' ]}
+    ],
+    questions: [
+      { q:'Какой признак НЕ относится к деятельности?',
+        options:['Сознательный характер','Целенаправленность','Инстинктивность','Преобразующий характер'],
+        correct:2, explain:'Инстинктивность — характеристика поведения животных. Деятельность всегда сознательна.' },
+      { q:'Какая функция искусства проявляется, когда человек узнаёт о быте дворян из «Войны и мира»?',
+        options:['Эстетическая','Познавательная','Компенсаторная','Коммуникативная'],
+        correct:1, explain:'Познавательная функция — человек получает новые знания через искусство.' },
+      { q:'Что является главным критерием истины?',
+        options:['Логичность','Практика','Мнение авторитета','Красота'],
+        correct:1, explain:'Практика — главный критерий истины. Логичность — дополнительный.' },
+      { q:'Какое правило НЕ относится к экологически ответственному поведению?',
+        options:['Раздельный сбор мусора','Сдача батареек на переработку','Сжигание листвы во дворе','Экономия воды'],
+        correct:2, explain:'Сжигание листвы вредит экологии. Остальное — эко-привычки.' },
+      { q:'Зачем нужны социально-гуманитарные науки обществу?',
+        options:['Только для развлечения','Помогают защищать человека и его права','Заменяют естественные науки','Нужны только историкам'],
+        correct:1, explain:'Соц-гум науки изучают человека и общество и способствуют гуманизации.' }
     ]
   },
   {
-    id: 3, title: 'Билет 3', topic: 'society',
+    id: 3, title: 'Билет 3',
+    icon: '📊',
+    short: 'Массовая культура · наука · прогресс',
     blocks: [
-      { type:'Признаки', q:'Три признака массовой культуры',
-        a:['ориентация на вкусы массового потребителя',
-           'преимущественно развлекательный характер',
-           'коммерческий характер (цель — прибыль)',
-           'серийность и тиражируемость',
-           'простота и доступность содержания'] },
-      { type:'Теория', q:'Уровни научного познания и три различия',
-        a:['Уровни: эмпирический и теоретический',
-           'Что изучают: эмпирический — наблюдаемые свойства; теоретический — внутренние связи и закономерности',
-           'Методы: эмпирический — наблюдение, эксперимент, измерение; теоретический — гипотезы, модели, идеализация',
-           'Результат: эмпирический — научные факты; теоретический — законы и теории',
-           'Связь: эмпирика даёт факты, теория их объясняет, затем теории проверяются опытом'] },
-      { type:'Теория', q:'Критерии прогресса и примеры',
-        a:['Развитие производительных сил: комбайны заменили ручной труд',
-           'Рост гуманизма: программа «Доступная среда» — пандусы и подъёмники',
-           'Развитие науки и образования: РЭШ — бесплатные онлайн-уроки',
-           'Расширение возможностей: ЕГЭ можно сдавать в своём регионе',
-           'Демократизация: всеобщее избирательное право вместо цензов',
-           'Рост продолжительности жизни: развитие медицины'] },
-      { type:'Российские реалии', q:'Три отечественных учёных в естественных науках',
-        a:['И. П. Павлов (биология) — исследовал нервную систему, открыл условные рефлексы',
-           'А. С. Попов (физика) — создал радиоприёмник, развил радиосвязь',
-           'Д. И. Менделеев (химия) — периодический закон, таблица элементов, предсказал новые элементы',
-           'Н. М. Пржевальский (география) — исследовал Центральную Азию, описал новые виды'] },
-      { type:'Обоснование', q:'Значимость непрерывного образования',
-        a:['Непрерывное образование — постоянное обновление знаний в течение карьеры',
-           'Знания быстро устаревают, нужно учиться, чтобы оставаться востребованным',
-           'Повышение квалификации помогает карьерному росту, доходу, освоению смежных профессий',
-           'Изучение нового расширяет кругозор, развивает мышление, помогает раскрыть способности',
-           'Вывод: непрерывное образование необходимо для карьеры, благополучия и развития'] },
-      { type:'План', q:'Сложный план по теме «Деятельность»',
-        a:['1. Характерные черты: а) сознательный; б) продуктивный; в) преобразующий характер',
-           '2. Структура: а) субъект; б) объект; в) мотив; г) цель; д) средства',
-           '3. Виды: а) материальная и духовная; б) труд, игра, учение, общение; в) репродуктивная и творческая',
-           '4. Мотивы: а) потребности; б) интересы; в) убеждения',
-           '5. Роль в жизни человека: а) материальные условия; б) развитие духа; в) самореализация; г) познание мира',
-           '6. Результаты: а) материальные блага; б) духовные ценности; в) воспроизводство отношений'] },
-      { type:'Виды наук', q:'Классифицируйте: материаловедение, краеведение, нейрофизиология',
-        a:['материаловедение — точная и техническая',
-           'краеведение — социально-гуманитарная',
-           'нейрофизиология — естественная'] }
+      { type:'признаки', q:'Признаки массовой культуры', a:[
+        'ориентация на вкусы массового потребителя',
+        'преимущественно развлекательный характер',
+        'коммерческий характер (цель — прибыль)',
+        'серийность и тиражируемость',
+        'простота и доступность содержания' ]},
+      { type:'теория', q:'Уровни научного познания', a:[
+        'Эмпирический: наблюдаемые свойства; методы — наблюдение, эксперимент, измерение; результат — факты',
+        'Теоретический: внутренние связи и закономерности; методы — гипотезы, модели, идеализация; результат — законы и теории',
+        'Связь: эмпирика даёт факты → теория объясняет → теории проверяются опытом' ]},
+      { type:'теория', q:'Критерии прогресса с примерами', a:[
+        'Развитие производительных сил: комбайны заменили ручной труд',
+        'Рост гуманизма: программа «Доступная среда» — пандусы',
+        'Развитие науки и образования: РЭШ — бесплатные онлайн-уроки',
+        'Расширение возможностей: ЕГЭ сдаётся в своём регионе',
+        'Демократизация: всеобщее избирательное право',
+        'Рост продолжительности жизни: развитие медицины',
+        'Свойства прогресса: противоречивость и относительность' ]},
+      { type:'реалии', q:'Российские учёные-естественники', a:[
+        'И. П. Павлов (биология) — условные рефлексы',
+        'А. С. Попов (физика) — радиоприёмник',
+        'Д. И. Менделеев (химия) — периодический закон, предсказал новые элементы',
+        'Н. М. Пржевальский (география) — исследовал Центральную Азию' ]},
+      { type:'обоснование', q:'Значимость непрерывного образования', a:[
+        'Непрерывное образование — постоянное обновление знаний в течение карьеры',
+        'Знания быстро устаревают — нужно учиться, чтобы оставаться востребованным',
+        'Повышение квалификации → карьерный рост и доход',
+        'Новые знания расширяют кругозор и помогают самореализации',
+        'Вывод: непрерывное образование необходимо для карьеры и развития' ]},
+      { type:'план', q:'Сложный план «Деятельность»', a:[
+        '1. Характерные черты: сознательный, продуктивный, преобразующий',
+        '2. Структура: субъект, объект, мотив, цель, средства',
+        '3. Виды: материальная и духовная; труд, игра, учение, общение; репродуктивная и творческая',
+        '4. Мотивы: потребности, интересы, убеждения',
+        '5. Роль в жизни: материальные условия, развитие духа, самореализация, познание',
+        '6. Результаты: материальные блага, духовные ценности, воспроизводство отношений' ]}
+    ],
+    questions: [
+      { q:'Какой признак НЕ относится к массовой культуре?',
+        options:['Развлекательный характер','Коммерческий характер','Сложность содержания','Серийность'],
+        correct:2, explain:'Сложность — черта элитарной культуры. Массовая — простая и доступная.' },
+      { q:'Что получают на эмпирическом уровне научного познания?',
+        options:['Законы и теории','Научные факты и результаты измерений','Гипотезы','Философские выводы'],
+        correct:1, explain:'Эмпирический уровень даёт факты; теоретический — законы и теории.' },
+      { q:'Какой критерий прогресса иллюстрирует программа «Доступная среда»?',
+        options:['Развитие производительных сил','Рост гуманизма','Рост продолжительности жизни','Демократизация'],
+        correct:1, explain:'Пандусы для людей с ОВЗ — проявление гуманизма.' },
+      { q:'Кто открыл периодический закон химических элементов?',
+        options:['И. П. Павлов','А. С. Попов','Д. И. Менделеев','Н. М. Пржевальский'],
+        correct:2, explain:'Д. И. Менделеев — периодический закон, предсказал новые элементы.' },
+      { q:'Почему знания нужно обновлять всю жизнь?',
+        options:['Так принято','Они быстро устаревают','Чтобы тратить деньги','Для развлечения'],
+        correct:1, explain:'Знания быстро устаревают — без обновления человек теряет востребованность.' }
     ]
   },
   {
-    id: 4, title: 'Билет 4', topic: 'society',
+    id: 4, title: 'Билет 4',
+    icon: '🔬',
+    short: 'Наука · культуры · мышление · глобальные проблемы',
     blocks: [
-      { type:'Признаки', q:'Три признака понятия «наука»',
-        a:['объективность',
-           'объяснение причинно-следственных связей',
-           'доказательность и обоснованность',
-           'проверяемость и воспроизводимость',
-           'системность',
-           'использование специального языка науки'] },
-      { type:'Теория', q:'Черты массовой, элитарной и народной культуры',
-        a:['Массовая: массовый потребитель, развлекательность, коммерция, серийность (сериал «Сваты», «Фиксики»)',
-           'Элитарная: узкий круг, сложность, новаторство, некоммерческий характер («Сталкер» Тарковского, «Чёрный квадрат» Малевича)',
-           'Народная: анонимность, коллективность, устная форма, отражает ценности народа (былина об Илье Муромце, пословицы)'] },
-      { type:'Теория', q:'Операции мышления и примеры',
-        a:['Сравнение, абстрагирование, обобщение, анализ, синтез, классификация, индукция, дедукция',
-           'Анализ — мысленное разделение целого на части (причины революции)',
-           'Синтез — объединение частей (характеристика природы региона)',
-           'Индукция — от частного к общему (железо, медь, алюминий расширяются → металлы расширяются)',
-           'Дедукция — от общего к частному (металлы проводят ток, медь — металл → медь проводит ток)'] },
-      { type:'Российские реалии', q:'Участие России в решении глобальных проблем',
-        a:['Экологическая: нацпарк «Земля леопарда» охраняет дальневосточного леопарда',
-           'Продовольственная: в 2023–2024 гг. Россия бесплатно поставила 200 тыс. тонн пшеницы шести африканским странам',
-           'Терроризм: в 2024 году Россия участвовала в учениях «Восток-Антитеррор» со странами СНГ'] },
-      { type:'Обоснование', q:'Закономерность интеграции наук',
-        a:['Наука — сфера деятельности, направленная на получение объективных знаний',
-           'Современные проблемы сложные, одной науки недостаточно',
-           'Перенос методов одной науки в другую ведёт к новым открытиям',
-           'Решение глобальных проблем требует совместной работы естественных, технических и соц-гум наук',
-           'Вывод: интеграция наук — закономерность развития современной науки'] },
-      { type:'План', q:'Сложный план по теме «Религия»',
-        a:['1. Признаки религии: а) вера в сверхъестественное; б) обряды и ритуалы; в) организации верующих',
-           '2. Структура: а) религиозное сознание; б) организации; в) культ; г) отношения',
-           '3. Функции: а) мировоззренческая; б) компенсаторная; в) регулятивная',
-           '4. Типы: а) национальные (индуизм, иудаизм); б) мировые (буддизм, христианство, ислам); в) ранние формы',
-           '5. Черты мировых религий: а) много последователей; б) наднациональный характер; в) эгалитаризм',
-           '6. Свобода совести в РФ: а) нет государственной религии; б) отделение от государства; в) свобода вероисповедания'] },
-      { type:'Виды наук', q:'Классифицируйте: археология, приборостроение, геология',
-        a:['археология — социально-гуманитарная',
-           'приборостроение — точная и техническая',
-           'геология — естественная'] }
+      { type:'признаки', q:'Признаки науки', a:[
+        'объективность',
+        'объяснение причинно-следственных связей',
+        'доказательность и обоснованность',
+        'проверяемость и воспроизводимость',
+        'системность',
+        'специальный язык науки' ]},
+      { type:'теория', q:'Черты массовой, элитарной, народной культуры', a:[
+        'Массовая: массовый потребитель, развлекательность, коммерция, серийность (сериал «Сваты»)',
+        'Элитарная: узкий круг, сложность, новаторство, некоммерческая («Сталкер» Тарковского, «Чёрный квадрат» Малевича)',
+        'Народная: анонимность, коллективность, устная форма (былины, пословицы)' ]},
+      { type:'теория', q:'Операции мышления', a:[
+        'Сравнение, абстрагирование, обобщение, анализ, синтез, классификация, индукция, дедукция',
+        'Анализ — разделение целого на части (причины революции)',
+        'Синтез — объединение частей (характеристика природы региона)',
+        'Индукция — от частного к общему (железо, медь, алюминий расширяются → металлы расширяются)',
+        'Дедукция — от общего к частному (металлы проводят ток, медь — металл → медь проводит ток)' ]},
+      { type:'реалии', q:'Участие России в решении глобальных проблем', a:[
+        'Экологическая: нацпарк «Земля леопарда» охраняет дальневосточного леопарда',
+        'Продовольственная: 2023-2024 — 200 тыс. тонн пшеницы шести африканским странам',
+        'Терроризм: 2024 — учения «Восток-Антитеррор» со странами СНГ' ]},
+      { type:'обоснование', q:'Закономерность интеграции наук', a:[
+        'Наука направлена на получение объективных знаний',
+        'Современные проблемы сложные, одной науки недостаточно',
+        'Перенос методов одной науки в другую ведёт к новым открытиям',
+        'Решение глобальных проблем требует совместной работы разных наук',
+        'Вывод: интеграция наук — закономерность развития современной науки' ]},
+      { type:'план', q:'Сложный план «Религия»', a:[
+        '1. Признаки: вера в сверхъестественное, обряды, организации верующих',
+        '2. Структура: религиозное сознание, организации, культ, отношения',
+        '3. Функции: мировоззренческая, компенсаторная, регулятивная',
+        '4. Типы: национальные (индуизм, иудаизм), мировые (буддизм, христианство, ислам), ранние формы',
+        '5. Черты мировых религий: много последователей, наднациональный характер, эгалитаризм',
+        '6. Свобода совести в РФ: нет государственной религии, отделение от государства, свобода вероисповедания' ]}
+    ],
+    questions: [
+      { q:'Что НЕ является признаком науки?',
+        options:['Объективность','Проверяемость','Вера в сверхъестественное','Системность'],
+        correct:2, explain:'Вера в сверхъестественное — признак религии, а не науки.' },
+      { q:'Какой тип культуры характеризуется анонимностью и коллективным творчеством?',
+        options:['Массовая','Элитарная','Народная','Экранная'],
+        correct:2, explain:'Народная культура анонимна: сказки, былины, пословицы.' },
+      { q:'«Все металлы расширяются при нагревании, медь — металл, значит медь расширяется». Что это?',
+        options:['Индукция','Дедукция','Анализ','Абстрагирование'],
+        correct:1, explain:'Дедукция — от общего к частному.' },
+      { q:'Что сделала Россия для решения продовольственной проблемы?',
+        options:['Запретила экспорт','Поставила 200 тыс. тонн пшеницы африканским странам','Ввела санкции','Ничего'],
+        correct:1, explain:'В 2023-2024 Россия бесплатно поставила 200 тыс. тонн пшеницы шести африканским странам.' },
+      { q:'Почему науки сегодня интегрируются?',
+        options:['Так модно','Современные проблемы сложные, одной науки мало','Чтобы тратить гранты','Так исторически сложилось'],
+        correct:1, explain:'Современные проблемы требуют совместной работы разных наук.' }
     ]
   },
   {
-    id: 5, title: 'Билет 5', topic: 'society',
+    id: 5, title: 'Билет 5',
+    icon: '🎭',
+    short: 'Научное познание · статусы · искусство',
     blocks: [
-      { type:'Признаки', q:'Три признака научного познания',
-        a:['объективность',
-           'объяснение причинно-следственных связей',
-           'доказательность и обоснованность',
-           'проверяемость и воспроизводимость',
-           'системность',
-           'использование специального языка науки'] },
-      { type:'Теория', q:'Методы эмпирического и теоретического уровня',
-        a:['Эмпирические: наблюдение (зоолог за дельфинами), эксперимент (Мендель скрещивал горох), измерение (глубина Байкала), опрос (ВЦИОМ), описание (скелет мамонта), сравнение (сорта томатов)',
-           'Теоретические: гипотеза, абстрагирование, аналогия (сердце как насос), моделирование, анализ, синтез, идеализация (Земля как точка), формализация'] },
-      { type:'Теория', q:'Виды социальных статусов и роли',
-        a:['Статусы: предписанные и достигаемые; основные и ситуационные',
-           'Базовые роли: гражданин, семьянин, потребитель, труженик, собственник',
-           'Статус — положение в обществе с правами и обязанностями; роль — ожидаемое поведение (учитель — статус, объяснять — роль)'] },
-      { type:'Российские реалии', q:'Три российских деятеля искусства',
-        a:['К. С. Малевич (живопись) — «Чёрный квадрат», основатель супрематизма',
-           'А. С. Пушкин (литература) — основоположник современного русского литературного языка',
-           'П. И. Чайковский (музыка) — балеты «Лебединое озеро», «Щелкунчик», опера «Евгений Онегин»',
-           'А. А. Тарковский (кино) — «Андрей Рублёв», «Солярис», «Сталкер»'] },
-      { type:'Обоснование', q:'Необходимость междисциплинарных исследований',
-        a:['Общество — сложная система взаимосвязанных сфер',
-           'Общественные явления затрагивают сразу несколько сфер (низкая рождаемость — экономика, медицина, жильё)',
-           'Сочетание методов (опросы, статистика, анализ документов) даёт более полную картину',
-           'В соц. познании субъект и объект совпадают, сопоставление выводов разных наук повышает объективность',
-           'Вывод: современное российское общество нужно изучать междисциплинарно'] },
-      { type:'План', q:'Сложный план по теме «Общество как динамическая система»',
-        a:['1. Черты динамической системы: а) саморазвитие; б) новые элементы; в) взаимосвязь элементов',
-           '2. Направления динамики: а) прогресс; б) регресс',
-           '3. Формы изменений: а) революция; б) реформа; в) эволюция',
-           '4. Особенности: а) непредсказуемость; б) нелинейность; в) альтернативность',
-           '5. Компоненты: а) сферы жизни; б) соц. институты; в) общности и группы',
-           '6. Сферы: а) духовная; б) политическая; в) социальная; г) экономическая',
-           '7. Функции: а) производство благ; б) регламентация; в) социализация; г) духовное производство',
-           '8. Институты: а) семья; б) государство; в) рынок; г) образование'] },
-      { type:'Виды наук', q:'Классифицируйте: биохимия, аэронавтика, культурология',
-        a:['биохимия — естественная',
-           'аэронавтика — точная и техническая',
-           'культурология — социально-гуманитарная'] }
+      { type:'признаки', q:'Признаки научного познания', a:[
+        'объективность',
+        'объяснение причинно-следственных связей',
+        'доказательность и обоснованность',
+        'проверяемость и воспроизводимость',
+        'системность',
+        'специальный язык науки' ]},
+      { type:'теория', q:'Методы эмпирического и теоретического уровня', a:[
+        'Эмпирические: наблюдение, эксперимент, измерение, опрос, описание, сравнение',
+        'Теоретические: гипотеза, абстрагирование, аналогия, моделирование, анализ, синтез, идеализация, формализация',
+        'Примеры: Мендель скрещивал горох (эксперимент), ВЦИОМ (опрос), сердце как насос (аналогия)' ]},
+      { type:'теория', q:'Виды социальных статусов и базовые роли', a:[
+        'Статусы: предписанные и достигаемые; основные и ситуационные',
+        'Базовые роли: гражданин, семьянин, потребитель, труженик, собственник',
+        'Статус — положение с правами и обязанностями; роль — ожидаемое поведение (учитель — статус, объяснять — роль)' ]},
+      { type:'реалии', q:'Российские деятели искусства', a:[
+        'К. С. Малевич (живопись) — «Чёрный квадрат», основатель супрематизма',
+        'А. С. Пушкин (литература) — основоположник современного русского литературного языка',
+        'П. И. Чайковский (музыка) — «Лебединое озеро», «Щелкунчик», «Евгений Онегин»',
+        'А. А. Тарковский (кино) — «Андрей Рублёв», «Солярис», «Сталкер»' ]},
+      { type:'обоснование', q:'Междисциплинарные исследования общества', a:[
+        'Общество — сложная система взаимосвязанных сфер',
+        'Явления затрагивают несколько сфер (низкая рождаемость — экономика, медицина, жильё)',
+        'Сочетание методов (опросы, статистика, анализ документов) даёт полную картину',
+        'В соц. познании субъект и объект совпадают — сопоставление выводов разных наук повышает объективность',
+        'Вывод: современное общество нужно изучать междисциплинарно' ]},
+      { type:'план', q:'Сложный план «Общество как динамическая система»', a:[
+        '1. Черты: саморазвитие, новые элементы, взаимосвязь',
+        '2. Направления: прогресс и регресс',
+        '3. Формы изменений: революция, реформа, эволюция',
+        '4. Особенности: непредсказуемость, нелинейность, альтернативность',
+        '5. Компоненты: сферы, институты, общности',
+        '6. Сферы: духовная, политическая, социальная, экономическая',
+        '7. Функции: производство благ, регламентация, социализация, духовное производство',
+        '8. Институты: семья, государство, рынок, образование' ]}
+    ],
+    questions: [
+      { q:'Какие методы относятся к эмпирическому уровню?',
+        options:['Гипотеза и моделирование','Наблюдение и эксперимент','Анализ и синтез','Идеализация'],
+        correct:1, explain:'Наблюдение, эксперимент, измерение, описание, сравнение — эмпирика.' },
+      { q:'Учитель — это статус или роль?',
+        options:['Роль','Статус','И то, и другое одновременно','Ни то, ни другое'],
+        correct:1, explain:'Учитель — статус (положение). Объяснять материал, проверять работы — роль.' },
+      { q:'Кто написал «Чёрный квадрат»?',
+        options:['А. С. Пушкин','К. С. Малевич','П. И. Чайковский','А. А. Тарковский'],
+        correct:1, explain:'«Чёрный квадрат» — К. С. Малевич, основатель супрематизма.' },
+      { q:'Почему современное общество изучают междисциплинарно?',
+        options:['Так требуют чиновники','Явления затрагивают несколько сфер сразу','Для экономии времени','Так проще'],
+        correct:1, explain:'Общественные явления затрагивают экономику, политику, культуру — одной науки мало.' },
+      { q:'Что относится к формам социальных изменений?',
+        options:['Революция, реформа, эволюция','Прогресс и регресс','Динамика и статика','Только революция'],
+        correct:0, explain:'Формы изменений: революция, реформа, эволюция. Прогресс/регресс — направления.' }
     ]
   },
   {
-    id: 6, title: 'Билет 6', topic: 'society',
+    id: 6, title: 'Билет 6',
+    icon: '🎨',
+    short: 'Искусство · религия · традиционные ценности',
     blocks: [
-      { type:'Признаки', q:'Три признака понятия «искусство»',
-        a:['способ познания мира с помощью художественных образов',
-           'образность и наглядность',
-           'основано на чувственном восприятии мира',
-           'носит субъективный характер',
-           'использование особых способов отражения (слово, звук, цвет, форма, движение)'] },
-      { type:'Теория', q:'Виды религий и функции (две с примерами)',
-        a:['Виды: политеистические и монотеистические; ранние формы, национально-государственные, мировые (буддизм, христианство, ислам)',
-           'Функции: мировоззренческая, регулятивная, компенсаторная, коммуникативная, интегрирующая, культурная',
-           'Регулятивная: предприниматель следует заповеди «не укради»',
-           'Культурная: икона «Троица» А. Рублёва сохраняет культурное наследие'] },
-      { type:'Теория', q:'Традиционные ценности РФ (указ № 809)',
-        a:['Жизнь, достоинство, права и свободы человека',
-           'Патриотизм, гражданственность, служение Отечеству',
-           'Высокие нравственные идеалы, крепкая семья, созидательный труд',
-           'Приоритет духовного над материальным, гуманизм, милосердие, справедливость',
-           'Коллективизм, взаимопомощь и взаимоуважение',
-           'Историческая память и преемственность поколений, единство народов России',
-           'Отличие от нац. интересов: ценности — нравственные ориентиры; интересы — потребности в безопасности и развитии'] },
-      { type:'Российские реалии', q:'Три отечественных учёных в соц-гум науках',
-        a:['В. О. Ключевский (история) — «Курс русской истории», история через жизнь народа',
-           'С. И. Ожегов (лингвистика) — толковый «Словарь русского языка»',
-           'Н. Д. Кондратьев (экономика) — «циклы Кондратьева»',
-           'К. Д. Ушинский (педагогика) — основатель научной педагогики'] },
-      { type:'Обоснование', q:'Необходимость господдержки искусства',
-        a:['Искусство — отражение действительности в художественных образах',
-           'Искусство воспитывает, формирует патриотизм и нравственные идеалы — важно для государства',
-           'Элитарное искусство (опера, балет) некоммерческое, без поддержки не выживет',
-           'Господдержка делает искусство доступным во всех регионах, сохраняет наследие',
-           'Вывод: поддержка искусства нужна для духовного развития общества'] },
-      { type:'План', q:'Сложный план по теме «Познавательная деятельность»',
-        a:['1. Характеристики: а) получение новых знаний; б) методы; в) обогащение картины мира; г) развитие интеллекта',
-           '2. Структура: а) субъект; б) объект; в) цель; г) результат',
-           '3. Этапы: а) чувственное (ощущение, восприятие, представление); б) рациональное (понятие, суждение, умозаключение)',
-           '4. Научное познание: а) теоретичность; б) объективность; в) доказательность; г) системность',
-           '5. Уровни: а) эмпирический; б) теоретический',
-           '6. Виды познания: а) обыденное; б) мифологическое; в) религиозное; г) научное; д) художественное',
-           '7. Социальное познание: а) совпадение субъекта и объекта; б) связь с интересами; в) ценностный характер'] },
-      { type:'Виды наук', q:'Классифицируйте: робототехника, генетика, литературоведение',
-        a:['робототехника — точная и техническая',
-           'генетика — естественная',
-           'литературоведение — социально-гуманитарная'] }
+      { type:'признаки', q:'Признаки искусства', a:[
+        'способ познания мира через художественные образы',
+        'образность и наглядность',
+        'основано на чувственном восприятии',
+        'субъективный характер',
+        'особые способы отражения: слово, звук, цвет, форма, движение' ]},
+      { type:'теория', q:'Виды религий и функции', a:[
+        'Виды: политеистические и монотеистические; ранние формы, национальные, мировые (буддизм, христианство, ислам)',
+        'Функции: мировоззренческая, регулятивная, компенсаторная, коммуникативная, интегрирующая, культурная',
+        'Регулятивная: предприниматель следует заповеди «не укради»',
+        'Культурная: икона «Троица» А. Рублёва сохраняет наследие' ]},
+      { type:'теория', q:'Традиционные ценности РФ (указ № 809)', a:[
+        'Жизнь, достоинство, права и свободы человека',
+        'Патриотизм, гражданственность, служение Отечеству',
+        'Высокие нравственные идеалы, крепкая семья, созидательный труд',
+        'Приоритет духовного над материальным, гуманизм, милосердие, справедливость',
+        'Коллективизм, взаимопомощь и взаимоуважение',
+        'Историческая память, единство народов России',
+        'Ценности — нравственные ориентиры; нац. интересы — потребности в безопасности и развитии' ]},
+      { type:'реалии', q:'Учёные в соц-гум науках', a:[
+        'В. О. Ключевский (история) — «Курс русской истории»',
+        'С. И. Ожегов (лингвистика) — толковый «Словарь русского языка»',
+        'Н. Д. Кондратьев (экономика) — «циклы Кондратьева»',
+        'К. Д. Ушинский (педагогика) — основатель научной педагогики' ]},
+      { type:'обоснование', q:'Господдержка искусства', a:[
+        'Искусство — отражение действительности в художественных образах',
+        'Воспитывает, формирует патриотизм и нравственные идеалы — важно для государства',
+        'Элитарное искусство (опера, балет) некоммерческое, без поддержки не выживет',
+        'Господдержка делает искусство доступным во всех регионах, сохраняет наследие',
+        'Вывод: поддержка искусства нужна для духовного развития общества' ]},
+      { type:'план', q:'Сложный план «Познавательная деятельность»', a:[
+        '1. Характеристики: получение новых знаний, методы, обогащение картины мира',
+        '2. Структура: субъект, объект, цель, результат',
+        '3. Этапы: чувственное (ощущение, восприятие, представление); рациональное (понятие, суждение, умозаключение)',
+        '4. Научное познание: теоретичность, объективность, доказательность, системность',
+        '5. Уровни: эмпирический и теоретический',
+        '6. Виды познания: обыденное, мифологическое, религиозное, научное, художественное',
+        '7. Социальное познание: совпадение субъекта и объекта, связь с интересами, ценностный характер' ]}
+    ],
+    questions: [
+      { q:'Что отличает искусство от науки?',
+        options:['Точность','Художественные образы','Объективность','Системность'],
+        correct:1, explain:'Искусство познаёт мир через художественные образы, наука — через понятия.' },
+      { q:'Сколько мировых религий?',
+        options:['Одна','Две','Три (буддизм, христианство, ислам)','Пять'],
+        correct:2, explain:'Три мировые религии: буддизм, христианство, ислам.' },
+      { q:'Что из перечисленного — традиционная ценность РФ, а не национальный интерес?',
+        options:['Сбережение народа','Крепкая семья','Защита суверенитета','Развитие экономики'],
+        correct:1, explain:'Крепкая семья — ценность. Сбережение народа, суверенитет, экономика — нац. интересы.' },
+      { q:'Кто автор «Словаря русского языка»?',
+        options:['В. О. Ключевский','С. И. Ожегов','Н. Д. Кондратьев','К. Д. Ушинский'],
+        correct:1, explain:'С. И. Ожегов — автор толкового «Словаря русского языка».' },
+      { q:'Зачем государство поддерживает оперу и балет?',
+        options:['Чтобы тратить бюджет','Они некоммерческие и без поддержки не выживут','Так принято в мире','Для престижа'],
+        correct:1, explain:'Элитарное искусство некоммерческое — без господдержки не сохранится.' }
     ]
   },
   {
-    id: 7, title: 'Билет 7', topic: 'society',
+    id: 7, title: 'Билет 7',
+    icon: '🏛️',
+    short: 'Социальные институты · мировоззрение · образование',
     blocks: [
-      { type:'Признаки', q:'Три признака социального института',
-        a:['способствует удовлетворению базовых общественных потребностей',
-           'наличие специальных учреждений',
-           'содержит установки и образцы поведения',
-           'предполагает наличие статусов и ролей',
-           'обладает средствами для решения задач',
-           'использует культурные символы'] },
-      { type:'Теория', q:'Особенности чувственного и рационального познания',
-        a:['Чувственное: непосредственный контакт с предметом, наглядность, внешние свойства; формы — ощущение, восприятие, представление',
-           'Рациональное: логические операции, абстрактность, обобщённость, существенные свойства; формы — понятие, суждение, умозаключение'] },
-      { type:'Теория', q:'Типы мировоззрения и пример',
-        a:['Типы: мифологическое, религиозное, философское, обыденное, научное',
-           'Обыденное: бабушка советует при простуде чай с малиной',
-           'Научное: инженер рассчитал прочность моста',
-           'Мифологическое: вера древних славян в домового'] },
-      { type:'Российские реалии', q:'Три учёных в точных и технических науках',
-        a:['Н. И. Лобачевский (математика) — геометрия Лобачевского',
-           'А. П. Ершов (информатика) — система «Альфа», автоматически улучшавшая код',
-           'Е. И. Юревич (робототехника) — роботы для уборки обломков после аварии на ЧАЭС',
-           'К. Э. Циолковский (космонавтика) — формула скорости ракеты, обоснование полёта на жидкостной ракете'] },
-      { type:'Обоснование', q:'Значимость естественных наук для качества жизни',
-        a:['Естественные науки изучают природу (физика, химия, биология, география)',
-           'На основе законов природы создают лекарства и вакцины — растёт продолжительность жизни',
-           'Позволяют прогнозировать природные явления и защищать людей',
-           'Знания о природе помогают защищать окружающую среду',
-           'Вывод: естественно-научные исследования повышают качество жизни россиян'] },
-      { type:'План', q:'Сложный план по теме «Образование в РФ»',
-        a:['1. Уровни образования: а) общее; б) профессиональное; в) дополнительное; г) профобучение',
-           '2. Функции: а) профессионально-экономическая; б) социализирующая; в) культурная',
-           '3. Принципы госполитики: а) гуманистический характер; б) светский характер; в) право на образование в течение всей жизни; г) единство пространства',
-           '4. Тенденции: а) гуманизация; б) информатизация; в) гуманитаризация; г) демократизация',
-           '5. Права обучающихся: а) выбор организации; б) индивидуальный план; в) каникулы; г) уважение достоинства',
-           '6. Обязанности: а) осваивать программу; б) выполнять устав; в) заботиться о здоровье; г) беречь имущество',
-           '7. Структура как института: а) статусы и роли; б) организации; в) программы и учебники',
-           '8. Формы получения: а) в организациях (очная, очно-заочная, заочная); б) вне (семейное, самообразование)'] },
-      { type:'Виды наук', q:'Классифицируйте: педагогика, физическая химия, ядерная энергетика',
-        a:['педагогика — социально-гуманитарная',
-           'физическая химия — естественная',
-           'ядерная энергетика — точная и техническая'] }
+      { type:'признаки', q:'Признаки социального института', a:[
+        'способствует удовлетворению базовых общественных потребностей',
+        'наличие специальных учреждений',
+        'содержит установки и образцы поведения',
+        'предполагает наличие статусов и ролей',
+        'обладает средствами для решения задач',
+        'использует культурные символы' ]},
+      { type:'теория', q:'Чувственное и рациональное познание', a:[
+        'Чувственное: контакт с предметом, наглядность, внешние свойства; формы — ощущение, восприятие, представление',
+        'Рациональное: логические операции, абстрактность, существенные свойства; формы — понятие, суждение, умозаключение' ]},
+      { type:'теория', q:'Типы мировоззрения и примеры', a:[
+        'Типы: мифологическое, религиозное, философское, обыденное, научное',
+        'Обыденное: бабушка советует при простуде чай с малиной',
+        'Научное: инженер рассчитал прочность моста',
+        'Мифологическое: вера древних славян в домового' ]},
+      { type:'реалии', q:'Учёные в точных и технических науках', a:[
+        'Н. И. Лобачевский (математика) — геометрия Лобачевского',
+        'А. П. Ершов (информатика) — система «Альфа»',
+        'Е. И. Юревич (робототехника) — роботы для уборки после аварии на ЧАЭС',
+        'К. Э. Циолковский (космонавтика) — формула скорости ракеты' ]},
+      { type:'обоснование', q:'Значимость естественных наук', a:[
+        'Естественные науки изучают природу (физика, химия, биология, география)',
+        'На основе их законов создают лекарства — растёт продолжительность жизни',
+        'Позволяют прогнозировать природные явления',
+        'Помогают защищать окружающую среду',
+        'Вывод: естественно-научные исследования повышают качество жизни' ]},
+      { type:'план', q:'Сложный план «Образование в РФ»', a:[
+        '1. Уровни: общее, профессиональное, дополнительное, профобучение',
+        '2. Функции: профессионально-экономическая, социализирующая, культурная',
+        '3. Принципы: гуманистический, светский, право на образование всю жизнь, единство пространства',
+        '4. Тенденции: гуманизация, информатизация, гуманитаризация, демократизация',
+        '5. Права обучающихся: выбор организации, индивидуальный план, каникулы, уважение',
+        '6. Обязанности: осваивать программу, выполнять устав, заботиться о здоровье, беречь имущество',
+        '7. Структура института: статусы, организации, программы',
+        '8. Формы получения: в организациях (очно, очно-заочно, заочно); вне (семейное, самообразование)' ]}
+    ],
+    questions: [
+      { q:'Что НЕ относится к признакам социального института?',
+        options:['Удовлетворение базовых потребностей','Наличие учреждений','Наличие инстинктов','Использование символов'],
+        correct:2, explain:'Инстинкты — биология. Институты — социальные образования.' },
+      { q:'Какая форма познания даёт целостный образ предмета?',
+        options:['Ощущение','Восприятие','Представление','Понятие'],
+        correct:1, explain:'Восприятие даёт целостный образ. Ощущение — отдельные свойства. Представление — образ по памяти.' },
+      { q:'Пример обыденного мировоззрения — это…',
+        options:['Вера древних славян в домового','Чай с малиной от простуды','Прочность моста по расчётам','Философская система'],
+        correct:1, explain:'Чай с малиной — житейский опыт, обыденное мировоззрение.' },
+      { q:'Кто из российских учёных создал геометрию Лобачевского?',
+        options:['А. П. Ершов','Н. И. Лобачевский','Е. И. Юревич','К. Э. Циолковский'],
+        correct:1, explain:'Н. И. Лобачевский — автор неевклидовой геометрии.' },
+      { q:'Что относится к тенденциям развития образования?',
+        options:['Гуманизация, информатизация, гуманитаризация','Только информатизация','Отмена экзаменов','Только гуманизация'],
+        correct:0, explain:'Основные тенденции: гуманизация, информатизация, гуманитаризация, демократизация.' }
     ]
   },
   {
-    id: 8, title: 'Билет 8', topic: 'society',
+    id: 8, title: 'Билет 8',
+    icon: '🌍',
+    short: 'Общество как система · типы обществ · наука · природа',
     blocks: [
-      { type:'Признаки', q:'Три признака общества как системы',
-        a:['сложная система (разнокачественные элементы и подсистемы)',
-           'динамичность (непрерывное изменение и развитие)',
-           'самоорганизованность',
-           'самостоятельное воспроизводство',
-           'иерархичность',
-           'функциональность'] },
-      { type:'Теория', q:'Черты традиционного, индустриального и постиндустриального обществ',
-        a:['Традиционное: главный фактор — земля; натуральное хозяйство, ручной труд; сословия, низкая мобильность; сильны традиции и церковь; расширенные семьи',
-           'Индустриальное: главный фактор — капитал; машинное производство; урбанизация, высокая мобильность; нуклеарные семьи; массовая культура',
-           'Постиндустриальное: главный фактор — информация; сфера услуг; автоматизация и роботизация; средний класс; непрерывное образование; электронное правительство'] },
-      { type:'Теория', q:'Функции науки с примерами',
-        a:['Познавательная — Павлов открыл условные рефлексы',
-           'Прогностическая — экономисты спрогнозировали безработицу на 2027 г.',
-           'Мировоззренческая — открытия астрономов о вращении Земли вокруг Солнца',
-           'Производственная — роботы на автозаводах собирают детали',
-           'Решение глобальных проблем — солнечные панели снижают загрязнение'] },
-      { type:'Российские реалии', q:'Традиционные ценности с примерами',
-        a:['Крепкая семья: семья из Рязани направила маткапитал на покупку квартиры',
-           'Историческая память: семья из Москвы хранит фронтовые письма прадеда',
-           'Милосердие: Людмила перечисляет деньги благотворительной организации',
-           'Гуманизм: программа «Доступная среда» для людей с ОВЗ',
-           'Созидательный труд: врач-кардиолог из Уфы считает помощь людям призванием'] },
-      { type:'Обоснование', q:'Необходимость участия каждого в сохранении природы',
-        a:['Сохранение природы необходимо для жизни и здоровья, зависит от поведения каждого',
-           'Ежедневно люди расходуют ресурсы и выбрасывают мусор — одних госмер недостаточно',
-           'Экономия ресурсов и сокращение отходов уменьшают вред природе',
-           'Своим примером взрослые приучают детей бережно относиться к среде',
-           'Вывод: участие каждого дополняет меры государства'] },
-      { type:'План', q:'Сложный план по теме «Искусство»',
-        a:['1. Особенности искусства: а) чувственное познание; б) художественные образы; в) субъективный характер',
-           '2. Признаки как соц. института: а) система ценностей; б) специальные учреждения; в) правила создания и потребления',
-           '3. Функции: а) эстетическая; б) познавательная; в) ценностно-ориентационная',
-           '4. Структура: 1) виды; 2) роды; 3) жанры; 4) стили',
-           '5. Виды: а) живопись; б) архитектура; в) скульптура; г) литература'] },
-      { type:'Виды наук', q:'Классифицируйте: космонавтика, политология, анатомия',
-        a:['космонавтика — точная и техническая',
-           'политология — социально-гуманитарная',
-           'анатомия — естественная'] }
+      { type:'признаки', q:'Признаки общества как системы', a:[
+        'сложная система (разнокачественные элементы)',
+        'динамичность (непрерывное изменение)',
+        'самоорганизованность',
+        'самостоятельное воспроизводство',
+        'иерархичность',
+        'функциональность' ]},
+      { type:'теория', q:'Типы обществ', a:[
+        'Традиционное: главный фактор — земля; ручной труд; сословия; низкая мобильность; сильны традиции и церковь; расширенные семьи',
+        'Индустриальное: главный фактор — капитал; машинное производство; урбанизация; высокая мобильность; нуклеарные семьи; массовая культура',
+        'Постиндустриальное: главный фактор — информация; сфера услуг; автоматизация; средний класс; непрерывное образование; электронное правительство' ]},
+      { type:'теория', q:'Функции науки с примерами', a:[
+        'Познавательная: Павлов открыл условные рефлексы',
+        'Прогностическая: экономисты спрогнозировали безработицу на 2027',
+        'Мировоззренческая: астрономы — Земля вращается вокруг Солнца',
+        'Производственная: роботы на автозаводах',
+        'Решение глобальных проблем: солнечные панели' ]},
+      { type:'реалии', q:'Традиционные ценности с примерами', a:[
+        'Крепкая семья: семья из Рязани направила маткапитал на квартиру',
+        'Историческая память: семья из Москвы хранит фронтовые письма прадеда',
+        'Милосердие: Людмила перечисляет деньги благотворительной организации',
+        'Гуманизм: программа «Доступная среда»',
+        'Созидательный труд: врач-кардиолог из Уфы считает помощь людям призванием' ]},
+      { type:'обоснование', q:'Участие каждого в сохранении природы', a:[
+        'Сохранение природы необходимо для жизни и здоровья, зависит от каждого',
+        'Люди ежедневно расходуют ресурсы и выбрасывают мусор — одних госмер недостаточно',
+        'Экономия ресурсов и сокращение отходов уменьшают вред природе',
+        'Своим примером взрослые приучают детей бережно относиться к среде',
+        'Вывод: участие каждого дополняет меры государства' ]},
+      { type:'план', q:'Сложный план «Искусство»', a:[
+        '1. Особенности: чувственное познание, художественные образы, субъективность',
+        '2. Признаки как института: система ценностей, учреждения, правила',
+        '3. Функции: эстетическая, познавательная, ценностно-ориентационная',
+        '4. Структура: виды, роды, жанры, стили',
+        '5. Виды: живопись, архитектура, скульптура, литература' ]}
+    ],
+    questions: [
+      { q:'Что НЕ является признаком общества как системы?',
+        options:['Динамичность','Самоорганизованность','Неизменность','Иерархичность'],
+        correct:2, explain:'Общество динамично — оно постоянно меняется, а не неизменно.' },
+      { q:'Какой фактор главный в постиндустриальном обществе?',
+        options:['Земля','Капитал','Информация и знания','Традиции'],
+        correct:2, explain:'Постиндустриальное общество — информация и знания важнее земли и капитала.' },
+      { q:'Какая функция науки проявилась в прогнозе безработицы?',
+        options:['Познавательная','Прогностическая','Мировоззренческая','Производственная'],
+        correct:1, explain:'Прогностическая — предсказание будущих явлений.' },
+      { q:'Что относится к крепкой семье как ценности с примером?',
+        options:['Семья из Рязани направила маткапитал на квартиру','Учёный открыл вакцину','Программа «Доступная среда»','Робот на заводе'],
+        correct:0, explain:'Маткапитал на квартиру — проявление ценности крепкой семьи.' },
+      { q:'Почему важно, чтобы каждый участвовал в сохранении природы?',
+        options:['Так модно','Одних госмер недостаточно','Так дешевле','Это требование ООН'],
+        correct:1, explain:'Государственных мер недостаточно — важно поведение каждого человека.' }
     ]
   }
 ];
 
 /* ============================================================
-   КВИЗ: автогенерируется из билетов + доп. вопросы
-   ============================================================ */
-function buildQuizFromBilety() {
-  const topics = {};
-  BILETY.forEach(b => {
-    b.blocks.forEach((blk, bi) => {
-      // для некоторых блоков делаем вопросы с вариантами
-      if (blk.type === 'Виды наук') {
-        // парсим "почвоведение — естественная"
-        blk.a.forEach(line => {
-          const m = line.match(/^(.+?)\s*—\s*(.+)$/);
-          if (!m) return;
-          const science = m[1].trim();
-          const correct = m[2].trim();
-          if (!topics['sciences']) topics['sciences'] = { icon:'🔬', title:'Виды наук', lessons:[] };
-          const allTypes = ['естественная','точная и техническая','социально-гуманитарная'];
-          const opts = allTypes.map(t => t === correct ? correct : t);
-          // перемешать
-          const shuffled = [...opts].sort(() => Math.random() - 0.5);
-          topics['sciences'].lessons.push({
-            title: science,
-            questions: [{
-              q: `К какому виду наук относится «${science}»?`,
-              options: shuffled.map(o => o.charAt(0).toUpperCase() + o.slice(1)),
-              correct: shuffled.indexOf(correct),
-              explain: `${science} — ${correct}.`
-            }]
-          });
-        });
-      }
-    });
-  });
-  return topics;
-}
-
-const SCIENCES_QUIZ = buildQuizFromBilety();
-
-/* ============================================================
    СОСТОЯНИЕ
    ============================================================ */
-const KEY = 'ege_chvo_v2';
+const KEY = 'ege_chvo_v3';
 let state = {
   animalId: null,
   xp: 0,
@@ -874,11 +843,11 @@ let state = {
   theme: 'light',
   quiz: null,
   exam: null,
-  viewedBilety: {},
   totalCorrect: 0,
-  totalWrong: 0
+  totalWrong: 0,
+  petChanged: false,
+  perfectOnce: false
 };
-
 function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
 function load() {
   try {
@@ -891,55 +860,46 @@ function load() {
    УТИЛИТЫ
    ============================================================ */
 const $ = id => document.getElementById(id);
-
-function showScreen(name) {
+function showScreen(n) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  $('screen-' + name).classList.add('active');
-  $('topbar').style.display = name === 'start' ? 'none' : 'flex';
+  $('screen-' + n).classList.add('active');
+  $('topbar').style.display = n === 'start' ? 'none' : 'flex';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
 function getStage(xp) {
-  let idx = 0;
-  for (let i = 0; i < STAGES.length; i++) if (xp >= STAGES[i].xp) idx = i;
-  return idx;
+  let i = 0;
+  for (let k = 0; k < STAGES.length; k++) if (xp >= STAGES[k].xp) i = k;
+  return i;
 }
 function getAnimal() { return ANIMALS[state.animalId] || null; }
-function lessonKey(t, i) { return t + ':' + i; }
-
 function updateStreak() {
-  const today = new Date().toDateString();
-  if (state.lastVisit === today) return;
-  const yesterday = new Date(Date.now() - 86400000).toDateString();
-  if (state.lastVisit === yesterday) state.streak++;
-  else state.streak = 1;
-  state.lastVisit = today;
+  const t = new Date().toDateString();
+  if (state.lastVisit === t) return;
+  const y = new Date(Date.now() - 86400000).toDateString();
+  state.streak = state.lastVisit === y ? state.streak + 1 : 1;
+  state.lastVisit = t;
   save();
 }
 
 /* ============================================================
-   ЗВУКИ (Web Audio API — без файлов)
+   ЗВУКИ
    ============================================================ */
-let audioCtx = null;
-function beep(freq, dur, type = 'sine', vol = 0.1, delay = 0) {
+let ac = null;
+function beep(f, d, type = 'sine', v = 0.08, delay = 0) {
   if (!state.sound) return;
   try {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const t = audioCtx.currentTime + delay;
-    const osc = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, t);
-    g.gain.setValueAtTime(vol, t);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    osc.connect(g); g.connect(audioCtx.destination);
-    osc.start(t); osc.stop(t + dur);
+    if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+    const t = ac.currentTime + delay;
+    const o = ac.createOscillator(); const g = ac.createGain();
+    o.type = type; o.frequency.setValueAtTime(f, t);
+    g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+    o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t + d);
   } catch(e){}
 }
 const SFX = {
-  correct: () => { beep(660, .12, 'sine', .08); beep(880, .15, 'sine', .08, .1); },
-  wrong:   () => { beep(200, .25, 'sawtooth', .06); },
-  click:   () => { beep(400, .05, 'sine', .04); },
+  correct: () => { beep(660, .12); beep(880, .15, 'sine', .08, .1); },
+  wrong:   () => beep(200, .25, 'sawtooth', .06),
+  click:   () => beep(400, .05, 'sine', .04),
   levelup: () => { beep(523, .12); beep(659, .12, 'sine', .1, .1); beep(784, .12, 'sine', .1, .2); beep(1047, .3, 'sine', .12, .3); },
   ach:     () => { beep(880, .1, 'triangle', .1); beep(1100, .2, 'triangle', .1, .1); },
   finish:  () => { beep(600, .1); beep(800, .1, 'sine', .1, .1); beep(1000, .25, 'sine', .1, .2); }
@@ -949,55 +909,43 @@ const SFX = {
    ДОСТИЖЕНИЯ
    ============================================================ */
 const ACHIEVEMENTS = [
-  { id:'first_lesson', icon:'🌱', title:'Первые шаги',  desc:'Пройди первый урок',                check: s => Object.keys(s.completed).length >= 1 },
-  { id:'perfect',      icon:'💯', title:'Отличник',     desc:'100% на уроке',                     check: s => Object.entries(s.completed).some(([k,v]) => { const parts = k.split(':'); return false; }) || s.totalCorrect > 0 && s.perfectOnce },
-  { id:'ten_lessons',  icon:'📚', title:'Учёный',       desc:'Пройди 10 уроков',                  check: s => Object.keys(s.completed).length >= 10 },
-  { id:'streak7',      icon:'🔥', title:'Марафонец',    desc:'Стрик 7 дней',                      check: s => s.streak >= 7 },
-  { id:'xp500',        icon:'⭐', title:'Знаток',       desc:'Набери 500 XP',                     check: s => s.xp >= 500 },
-  { id:'xp2000',       icon:'👑', title:'Мастер',       desc:'Набери 2000 XP',                    check: s => s.xp >= 2000 },
-  { id:'reader',       icon:'📖', title:'Библиофил',    desc:'Открой 5 билетов',                  check: s => Object.keys(s.viewedBilety).length >= 5 },
-  { id:'all_bilety',   icon:'🎓', title:'Эрудит',       desc:'Открой все 8 билетов',              check: s => Object.keys(s.viewedBilety).length >= 8 },
-  { id:'all_pets',     icon:'🐾', title:'Коллекционер', desc:'Смени питомца',                     check: s => s.petChanged },
-  { id:'accuracy',     icon:'🎯', title:'Снайпер',      desc:'Точность 80%+ (мин. 20 ответов)',   check: s => (s.totalCorrect + s.totalWrong) >= 20 && s.totalCorrect / (s.totalCorrect + s.totalWrong) >= 0.8 }
+  { id:'first',   icon:'🌱', title:'Первые шаги', desc:'Пройди первый билет',       check: s => Object.keys(s.completed).length >= 1 },
+  { id:'perfect', icon:'💯', title:'Отличник',    desc:'100% в одном билете',        check: s => s.perfectOnce },
+  { id:'half',    icon:'📚', title:'Половина',    desc:'Пройди 4 билета',            check: s => Object.keys(s.completed).length >= 4 },
+  { id:'all',     icon:'🎓', title:'Эрудит ЧвО',  desc:'Пройди все 8 билетов',       check: s => Object.keys(s.completed).length >= 8 },
+  { id:'streak7', icon:'🔥', title:'Марафонец',   desc:'Стрик 7 дней',               check: s => s.streak >= 7 },
+  { id:'xp500',   icon:'⭐', title:'Знаток',      desc:'500 XP',                     check: s => s.xp >= 500 },
+  { id:'xp2000',  icon:'👑', title:'Мастер',      desc:'2000 XP',                    check: s => s.xp >= 2000 },
+  { id:'accuracy',icon:'🎯', title:'Снайпер',     desc:'Точность 80%+ (мин. 20)',    check: s => (s.totalCorrect + s.totalWrong) >= 20 && s.totalCorrect / (s.totalCorrect + s.totalWrong) >= 0.8 },
+  { id:'exam',    icon:'⏱️', title:'Экзаменатор', desc:'Пройди пробный экзамен',     check: s => s.examPassed },
+  { id:'petchange',icon:'🐾', title:'Коллекционер',desc:'Смени питомца',             check: s => s.petChanged }
 ];
-
 function checkAchievements() {
-  let unlockedNew = [];
+  const unlocked = [];
   ACHIEVEMENTS.forEach(a => {
     if (!state.achievements[a.id] && a.check(state)) {
       state.achievements[a.id] = Date.now();
-      unlockedNew.push(a);
+      unlocked.push(a);
     }
   });
-  if (unlockedNew.length) {
+  if (unlocked.length) {
     save();
-    setTimeout(() => {
-      SFX.ach();
-      showAchievementPopup(unlockedNew);
-    }, 600);
+    setTimeout(() => { SFX.ach(); showAchPopup(unlocked); }, 600);
   }
 }
-
-function showAchievementPopup(list) {
+function showAchPopup(list) {
   const a = list[0];
-  const div = document.createElement('div');
-  div.className = 'overlay';
-  div.innerHTML = `
-    <div class="modal">
-      <div class="em">${a.icon}</div>
-      <h3>Достижение!</h3>
-      <p><b>${a.title}</b><br>${a.desc}</p>
-      <button class="btn btn-full" style="margin:0">Круто!</button>
-    </div>`;
-  div.querySelector('button').onclick = () => {
-    div.remove();
-    if (list.length > 1) showAchievementPopup(list.slice(1));
-  };
-  document.body.appendChild(div);
+  const d = document.createElement('div');
+  d.className = 'overlay';
+  d.innerHTML = `<div class="modal"><div class="em">${a.icon}</div>
+    <h3>Достижение!</h3><p><b>${a.title}</b><br>${a.desc}</p>
+    <button class="btn btn-full" style="margin:0">Круто!</button></div>`;
+  d.querySelector('button').onclick = () => { d.remove(); if (list.length > 1) showAchPopup(list.slice(1)); };
+  document.body.appendChild(d);
 }
 
 /* ============================================================
-   ТЕМА
+   ТЕМА / ЗВУК
    ============================================================ */
 function applyTheme() {
   document.documentElement.setAttribute('data-theme', state.theme);
@@ -1009,18 +957,16 @@ function applySound() {
 }
 
 /* ============================================================
-   СТАРТОВЫЙ ЭКРАН
+   ВЫБОР ПИТОМЦА
    ============================================================ */
-function renderAnimalChooser() {
-  const grid = $('animalGrid');
-  grid.innerHTML = '';
+function renderAnimals() {
+  const g = $('animalGrid'); g.innerHTML = '';
   Object.keys(ANIMALS).forEach(id => {
     const a = ANIMALS[id];
     const c = document.createElement('div');
     c.className = 'animal-card';
     c.innerHTML = `<span class="emoji">${a.emoji[0]}</span>
-      <div class="name">${a.name}</div>
-      <div class="desc">${a.desc}</div>`;
+      <div class="name">${a.name}</div><div class="desc">${a.desc}</div>`;
     c.onclick = () => {
       SFX.click();
       if (state.animalId && state.animalId !== id) state.petChanged = true;
@@ -1030,7 +976,7 @@ function renderAnimalChooser() {
       showScreen('home');
       renderHome();
     };
-    grid.appendChild(c);
+    g.appendChild(c);
   });
 }
 
@@ -1040,13 +986,11 @@ function renderAnimalChooser() {
 function renderHome() {
   const a = getAnimal();
   if (!a) { showScreen('start'); return; }
+  const sIdx = getStage(state.xp);
+  const stage = STAGES[sIdx];
+  const next = STAGES[sIdx + 1];
 
-  const stageIdx = getStage(state.xp);
-  const stage = STAGES[stageIdx];
-  const next = STAGES[stageIdx + 1];
-
-  // питомец
-  $('petBig').textContent = a.emoji[stageIdx];
+  $('petBig').textContent = a.emoji[sIdx];
   $('petBig').style.fontSize = (64 * stage.scale) + 'px';
   $('petName').textContent = a.name;
   $('petStage').textContent = 'Стадия: ' + stage.label;
@@ -1055,18 +999,14 @@ function renderHome() {
   if (next) {
     pct = Math.min(100, (state.xp - stage.xp) / (next.xp - stage.xp) * 100);
     xpText = `${state.xp} / ${next.xp} XP до «${next.label}»`;
-  } else {
-    xpText = `${state.xp} XP — максимум!`;
-  }
+  } else xpText = `${state.xp} XP — максимум!`;
   $('petProgress').style.width = pct + '%';
   $('petXp').textContent = xpText;
 
-  // хедер
-  $('petMini').textContent = a.emoji[stageIdx];
+  $('petMini').textContent = a.emoji[sIdx];
   $('topName').textContent = `${a.name} · ${stage.label}`;
   $('topProgress').style.width = pct + '%';
 
-  // статистика
   $('statStreak').textContent = state.streak;
   $('statXp').textContent = state.xp;
   $('statLessons').textContent = Object.keys(state.completed).length;
@@ -1088,488 +1028,218 @@ document.querySelectorAll('.tab').forEach(t => {
     renderTab(t.dataset.tab);
   };
 });
-
-function renderTab(name) {
-  if (name === 'lessons') renderLessons();
-  else if (name === 'bilety') renderBilety();
-  else if (name === 'exam') renderExamTab();
-  else if (name === 'ach') renderAchievements();
-  else if (name === 'settings') renderSettings();
+function renderTab(n) {
+  if (n === 'lessons') renderLessons();
+  else if (n === 'exam') renderExamTab();
+  else if (n === 'ach') renderAch();
+  else if (n === 'settings') renderSettings();
 }
 
 /* ============================================================
-   УРОКИ (темы)
+   УРОКИ — это БИЛЕТЫ ЧвО
    ============================================================ */
-const TOPICS = [
-  { id:'society', icon:'🌍', title:'Человек и общество', lessons:[
-    { title:'Сферы общественной жизни', questions:[
-      { q:'Какая сфера включает науку, религию и искусство?',
-        options:['Экономическая','Духовная','Политическая','Социальная'], correct:1,
-        explain:'Духовная сфера охватывает науку, религию, искусство, образование и мораль.' },
-      { q:'Что относится к экономической сфере?',
-        options:['Выборы президента','Производство товаров','Открытие театра','Взаимодействие классов'], correct:1,
-        explain:'Экономическая сфера — производство, распределение, обмен и потребление благ.' },
-      { q:'Деятельность политических партий относится к…',
-        options:['Духовной сфере','Социальной сфере','Политической сфере','Экономической сфере'], correct:2,
-        explain:'Политическая сфера — власть, государство, партии, выборы.' },
-      { q:'Взаимодействие классов и социальных групп — это…',
-        options:['Политическая сфера','Социальная сфера','Духовная сфера','Экономическая сфера'], correct:1,
-        explain:'Социальная сфера — отношения между группами, классами, слоями.' } ] },
-    { title:'Человек и деятельность', questions:[
-      { q:'Что отличает человека от животного?',
-        options:['Инстинкты','Целенаправленная творческая деятельность','Потребность в пище','Забота о потомстве'], correct:1,
-        explain:'Только человек способен к сознательной целенаправленной творческой деятельности.' },
-      { q:'Игра как вид деятельности отличается тем, что…',
-        options:['Направлена на результат','Ориентирована на сам процесс','Требует оплаты','Всегда коллективная'], correct:1,
-        explain:'В игре важен сам процесс, а не материальный результат.' },
-      { q:'Личность — это…',
-        options:['Биологический организм','Совокупность социально значимых качеств','Только индивид','Только темперамент'], correct:1,
-        explain:'Личность формируется в обществе и включает социально значимые качества.' },
-      { q:'Мировоззрение — это…',
-        options:['Настроение человека','Система взглядов на мир и место человека в нём','Набор инстинктов','Способ заработка'], correct:1,
-        explain:'Мировоззрение — система взглядов, оценок и принципов.' } ] }
-  ]},
-  { id:'economy', icon:'💰', title:'Экономика', lessons:[
-    { title:'Экономика как наука', questions:[
-      { q:'Что изучает микроэкономика?',
-        options:['Инфляцию в стране','Поведение отдельных потребителей и фирм','Мировой рынок','Государственный бюджет'], correct:1,
-        explain:'Микроэкономика — поведение отдельных субъектов: потребителей, фирм.' },
-      { q:'Главная проблема экономики — это…',
-        options:['Нехватка денег','Ограниченность ресурсов','Высокие налоги','Безработица'], correct:1,
-        explain:'Ресурсы ограничены, а потребности безграничны — это основа экономики.' },
-      { q:'Альтернативная стоимость — это…',
-        options:['Цена товара','Упущенная выгода от лучшей отвергнутой альтернативы','Скидка','Прибыль фирмы'], correct:1,
-        explain:'Альтернативная стоимость — ценность лучшей отвергнутой возможности.' },
-      { q:'Что относится к факторам производства?',
-        options:['Деньги и акции','Труд, земля, капитал, предпринимательство','Товары и услуги','Налоги и сборы'], correct:1,
-        explain:'Классические факторы: труд, земля, капитал, предпринимательские способности.' } ] },
-    { title:'Рынок и инфляция', questions:[
-      { q:'Закон спроса: при росте цены…',
-        options:['Спрос растёт','Величина спроса падает','Спрос не меняется','Спрос исчезает'], correct:1,
-        explain:'Чем выше цена, тем меньше величина спроса (при прочих равных).' },
-      { q:'Инфляция — это…',
-        options:['Рост зарплат','Обесценивание денег и рост цен','Падение цен','Рост безработицы'], correct:1,
-        explain:'Инфляция — устойчивый рост общего уровня цен.' },
-      { q:'Что относится к постоянным издержкам?',
-        options:['Покупка сырья','Аренда помещения','Оплата сдельной работы','Транспортные расходы'], correct:1,
-        explain:'Постоянные издержки не зависят от объёма выпуска: аренда, оклады, страховка.' },
-      { q:'Что такое ВВП?',
-        options:['Все доходы граждан','Стоимость всех конечных товаров и услуг за год','Госбюджет','Внешний долг'], correct:1,
-        explain:'ВВП — рыночная стоимость всех конечных товаров и услуг, произведённых в стране за год.' } ] }
-  ]},
-  { id:'social', icon:'👥', title:'Социальные отношения', lessons:[
-    { title:'Социальная структура', questions:[
-      { q:'Социальная стратификация — это…',
-        options:['Равенство всех','Расслоение общества на группы','Рост населения','Смена власти'], correct:1,
-        explain:'Стратификация — деление общества на слои по доходу, власти, престижу.' },
-      { q:'Социальная мобильность — это…',
-        options:['Передвижение по городу','Перемещение между социальными группами','Рост доходов','Смена профессии без изменения статуса'], correct:1,
-        explain:'Мобильность — изменение социального положения (вертикальная и горизонтальная).' },
-      { q:'Социальная роль — это…',
-        options:['Профессия','Модель поведения, ожидаемая от человека','Должность','Хобби'], correct:1,
-        explain:'Социальная роль — ожидаемое поведение, связанное со статусом.' },
-      { q:'Социальный конфликт — это…',
-        options:['Дружба','Столкновение интересов групп','Согласие','Праздник'], correct:1,
-        explain:'Конфликт — столкновение противоположных интересов и целей.' } ] },
-    { title:'Семья и молодёжь', questions:[
-      { q:'Нуклеарная семья — это…',
-        options:['Семья с бабушками и дедушками','Семья из родителей и детей','Многодетная семья','Семья без детей'], correct:1,
-        explain:'Нуклеарная семья состоит из супругов и их детей.' },
-      { q:'Функция семьи, связанная с рождением детей —',
-        options:['Экономическая','Репродуктивная','Воспитательная','Досуговая'], correct:1,
-        explain:'Репродуктивная функция — воспроизводство населения.' },
-      { q:'Что характеризует демократическую (партнёрскую) семью?',
-        options:['Главенство мужа','Равноправие супругов','Главенство жены','Жёсткая иерархия'], correct:1,
-        explain:'В партнёрской семье решения принимаются совместно, обязанности распределяются.' },
-      { q:'Молодёжь как социальная группа выделяется по…',
-        options:['Доходу','Возрасту и социальному положению','Религии','Национальности'], correct:1,
-        explain:'Молодёжь — группа с общими возрастными границами и социальными чертами.' } ] }
-  ]},
-  { id:'politics', icon:'🏛️', title:'Политика', lessons:[
-    { title:'Власть и государство', questions:[
-      { q:'Политическая власть — это…',
-        options:['Власть родителей','Способность влиять на поведение людей в обществе','Власть над природой','Экономическая власть'], correct:1,
-        explain:'Политическая власть распространяется на всё общество и опирается на государство.' },
-      { q:'Признак любого государства — это…',
-        options:['Наличие партий','Суверенитет','Многопартийность','Свобода слова'], correct:1,
-        explain:'Суверенитет — верховенство и независимость государственной власти.' },
-      { q:'Форма правления показывает…',
-        options:['Как устроена территория','Как организованы высшие органы власти','Какой режим в стране','Кто президент'], correct:1,
-        explain:'Форма правления — монархия или республика, порядок формирования высших органов.' },
-      { q:'Монархия отличается тем, что…',
-        options:['Власть выборная','Власть передаётся по наследству','Народ правит','Есть парламент'], correct:1,
-        explain:'В монархии власть передаётся по наследству и, как правило, пожизненно.' } ] },
-    { title:'Режимы и партии', questions:[
-      { q:'Демократия характеризуется…',
-        options:['Одной партией','Свободными выборами и правами граждан','Цензурой','Диктатурой'], correct:1,
-        explain:'Демократия — власть народа через свободные выборы и защиту прав.' },
-      { q:'Тоталитаризм — это…',
-        options:['Свобода слова','Полный контроль над всеми сферами жизни','Разделение властей','Многопартийность'], correct:1,
-        explain:'Тоталитарный режим контролирует политику, экономику, культуру и частную жизнь.' },
-      { q:'Политическая партия — это…',
-        options:['Группа друзей','Организация, борющаяся за власть','Госорган','Профсоюз'], correct:1,
-        explain:'Партия — организованная группа, цель которой — участие в осуществлении власти.' },
-      { q:'Выборы — это…',
-        options:['Назначение чиновников','Процедура формирования органов власти голосованием','Референдум','Митинг'], correct:1,
-        explain:'Выборы — процедура избрания должностных лиц и органов.' } ] }
-  ]},
-  { id:'law', icon:'⚖️', title:'Право', lessons:[
-    { title:'Основы права', questions:[
-      { q:'Право — это…',
-        options:['Моральные нормы','Система общеобязательных норм, установленных государством','Обычаи','Религиозные правила'], correct:1,
-        explain:'Право — система норм, обеспеченных силой государства.' },
-      { q:'Основной источник права в РФ — это…',
-        options:['Обычай','Нормативно-правовой акт','Судебный прецедент','Религиозный текст'], correct:1,
-        explain:'В романо-германской правовой семье основной источник — НПА.' },
-      { q:'Правоотношение — это…',
-        options:['Дружеская связь','Связь между субъектами с взаимными правами и обязанностями','Экономическая сделка','Религиозный обряд'], correct:1,
-        explain:'Правоотношение — общественное отношение, урегулированное правом.' },
-      { q:'Юридическая ответственность — это…',
-        options:['Моральное осуждение','Применение мер принуждения за нарушение норм права','Совесть','Обещание'], correct:1,
-        explain:'Юридическая ответственность — реакция государства на правонарушение.' } ] },
-    { title:'Конституция РФ', questions:[
-      { q:'Конституция РФ была принята…',
-        options:['12 июня 1991','12 декабря 1993','1 января 2000','4 ноября 1990'], correct:1,
-        explain:'Конституция РФ принята на всенародном голосовании 12 декабря 1993 года.' },
-      { q:'Что относится к основам конституционного строя РФ?',
-        options:['Однопартийность','Признание человека высшей ценностью','Цензура','Отмена выборов'], correct:1,
-        explain:'Ст. 2 Конституции РФ: человек, его права и свободы — высшая ценность.' },
-      { q:'Кто является главой государства в РФ?',
-        options:['Премьер-министр','Президент','Спикер Думы','Губернатор'], correct:1,
-        explain:'Президент РФ — глава государства (ст. 80 Конституции).' },
-      { q:'Федерация — это…',
-        options:['Единое унитарное государство','Форма гос. устройства с субъектами','Монархия','Политический режим'], correct:1,
-        explain:'Федерация — союзное государство, состоящее из субъектов.' } ] }
-  ]}
-];
-
 function renderLessons() {
-  const wrap = $('tab-lessons');
-  wrap.innerHTML = '';
-  TOPICS.forEach(topic => {
-    const tEl = document.createElement('div');
-    tEl.className = 'topic';
-    const done = topic.lessons.filter((l, i) => state.completed[lessonKey(topic.id, i)] !== undefined).length;
-    tEl.innerHTML = `
-      <div class="topic-head">
-        <span class="ic">${topic.icon}</span>
-        <span class="tt">${topic.title}</span>
-        <span class="cnt">${done}/${topic.lessons.length}</span>
+  const w = $('tab-lessons');
+  const done = CHVO.filter(b => state.completed['bilet' + b.id] !== undefined).length;
+  w.innerHTML = `
+    <div class="block-head">
+      <span class="ic">🧠</span>
+      <div class="tt"><b>Человек и общество</b><small>Билеты к зачёту · 8 уроков</small></div>
+      <span class="cnt">${done}/8</span>
+    </div>
+  `;
+  CHVO.forEach(b => {
+    const key = 'bilet' + b.id;
+    const best = state.completed[key];
+    const isDone = best !== undefined;
+    const row = document.createElement('div');
+    row.className = 'bilet-row' + (isDone ? ' done' : '');
+    row.innerHTML = `
+      <div class="num">${isDone ? '✓' : b.id}</div>
+      <div class="body">
+        <div class="title">${b.icon} ${b.title}</div>
+        <div class="meta">
+          <span>📖 ${b.blocks.length} блоков теории</span>
+          <span>🎯 ${b.questions.length} вопросов</span>
+          ${isDone ? `<span>✅ ${best}/${b.questions.length}</span>` : ''}
+        </div>
       </div>
-      <div class="lessons"></div>
-      <div class="topic-progress"></div>
+      <div class="arrow">›</div>
     `;
-    const lessonsEl = tEl.querySelector('.lessons');
-    const progEl = tEl.querySelector('.topic-progress');
-    topic.lessons.forEach((lesson, idx) => {
-      const key = lessonKey(topic.id, idx);
-      const best = state.completed[key];
-      const isDone = best !== undefined;
-      const el = document.createElement('div');
-      el.className = 'lesson' + (isDone ? ' done' : '');
-      el.innerHTML = `
-        <div class="lesson-num">${isDone ? '✓' : idx + 1}</div>
-        <div class="lesson-title">${lesson.title}</div>
-        <div class="lesson-score">${isDone ? best + '/' + lesson.questions.length : ''}</div>
-      `;
-      el.onclick = () => { SFX.click(); startQuiz(topic, idx); };
-      lessonsEl.appendChild(el);
-      const dot = document.createElement('div');
-      dot.className = 'dot' + (isDone ? ' done' : '');
-      progEl.appendChild(dot);
-    });
-    wrap.appendChild(tEl);
-  });
-
-  // Науки (из билетов)
-  const sciLessons = SCIENCES_QUIZ['sciences'];
-  if (sciLessons) {
-    const tEl = document.createElement('div');
-    tEl.className = 'topic';
-    const done = sciLessons.lessons.filter((l, i) => state.completed['sciences:' + i] !== undefined).length;
-    tEl.innerHTML = `
-      <div class="topic-head">
-        <span class="ic">🔬</span>
-        <span class="tt">Виды наук (из билетов)</span>
-        <span class="cnt">${done}/${sciLessons.lessons.length}</span>
-      </div>
-      <div class="lessons"></div>
-    `;
-    const lessonsEl = tEl.querySelector('.lessons');
-    sciLessons.lessons.forEach((lesson, idx) => {
-      const key = 'sciences:' + idx;
-      const best = state.completed[key];
-      const isDone = best !== undefined;
-      const el = document.createElement('div');
-      el.className = 'lesson' + (isDone ? ' done' : '');
-      el.innerHTML = `
-        <div class="lesson-num">${isDone ? '✓' : idx + 1}</div>
-        <div class="lesson-title">${lesson.title}</div>
-        <div class="lesson-score">${isDone ? best + '/1' : ''}</div>
-      `;
-      el.onclick = () => { SFX.click(); startQuizCustom('sciences', idx, lesson); };
-      lessonsEl.appendChild(el);
-    });
-    wrap.appendChild(tEl);
-  }
-}
-
-/* ============================================================
-   БИЛЕТЫ
-   ============================================================ */
-function renderBilety() {
-  const wrap = $('tab-bilety');
-  wrap.innerHTML = '';
-  BILETY.forEach(b => {
-    const viewed = state.viewedBilety[b.id];
-    const card = document.createElement('div');
-    card.className = 'bilet-card';
-    card.innerHTML = `
-      <div class="bilet-head">
-        <h3>📖 ${b.title}</h3>
-        <span class="badge ${viewed ? 'done' : ''}">${viewed ? '✓ прочитан' : b.blocks.length + ' блоков'}</span>
-      </div>
-      <div class="qa-list"></div>
-    `;
-    const qaList = card.querySelector('.qa-list');
-    b.blocks.forEach((blk, i) => {
-      const qa = document.createElement('div');
-      qa.className = 'qa';
-      qa.innerHTML = `
-        <div class="q"><span class="num">${i + 1}</span> <span><b>${blk.type}:</b> ${blk.q}</span></div>
-        <div class="a"><ul>${blk.a.map(x => '<li>' + x + '</li>').join('')}</ul></div>
-        <button class="toggle-btn">Показать ответ</button>
-      `;
-      const ans = qa.querySelector('.a');
-      const btn = qa.querySelector('.toggle-btn');
-      btn.onclick = () => {
-        SFX.click();
-        ans.classList.toggle('show');
-        btn.textContent = ans.classList.contains('show') ? 'Скрыть' : 'Показать ответ';
-        if (ans.classList.contains('show') && !state.viewedBilety[b.id]) {
-          state.viewedBilety[b.id] = true;
-          save();
-          checkAchievements();
-          renderBilety();
-        }
-      };
-      qaList.appendChild(qa);
-    });
-    wrap.appendChild(card);
+    row.onclick = () => { SFX.click(); openStudy(b.id); };
+    w.appendChild(row);
   });
 }
 
 /* ============================================================
-   КВИЗ
+   ЭКРАН ТЕОРИИ
    ============================================================ */
-function startQuiz(topic, lessonIdx) {
-  const lesson = topic.lessons[lessonIdx];
+function openStudy(id) {
+  const b = CHVO.find(x => x.id === id);
+  if (!b) return;
+  $('studyTitle').textContent = `${b.icon} ${b.title}`;
+  const c = $('studyContent'); c.innerHTML = '';
+  b.blocks.forEach(blk => {
+    const el = document.createElement('div');
+    el.className = 'study-card';
+    el.innerHTML = `
+      <div class="study-block">
+        <div class="type ${blk.type}">${blk.type}</div>
+        <div class="q">${blk.q}</div>
+        <ul>${blk.a.map(x => '<li>' + x + '</li>').join('')}</ul>
+      </div>
+    `;
+    c.appendChild(el);
+  });
+  $('studyStartQuiz').onclick = () => { SFX.click(); startBiletQuiz(b.id); };
+  showScreen('study');
+}
+
+/* ============================================================
+   КВИЗ ПО БИЛЕТУ
+   ============================================================ */
+function startBiletQuiz(id) {
+  const b = CHVO.find(x => x.id === id);
   state.quiz = {
-    topicId: topic.id,
-    lessonIdx,
-    questions: lesson.questions,
+    biletId: id,
+    questions: b.questions,
     current: 0,
     correct: 0,
     answered: false,
-    lessonTitle: lesson.title
+    lessonTitle: b.title + ' — квиз'
   };
   showScreen('quiz');
   renderQuestion();
 }
-
-function startQuizCustom(topicId, lessonIdx, lesson) {
-  state.quiz = {
-    topicId,
-    lessonIdx,
-    questions: lesson.questions,
-    current: 0,
-    correct: 0,
-    answered: false,
-    lessonTitle: lesson.title
-  };
-  showScreen('quiz');
-  renderQuestion();
-}
-
 function renderQuestion() {
   const q = state.quiz;
   const question = q.questions[q.current];
   const total = q.questions.length;
-
   $('quizCount').textContent = (q.current + 1) + '/' + total;
   $('quizProgress').style.width = (q.current / total * 100) + '%';
   $('quizQ').textContent = question.q;
-
-  const opts = $('quizOptions');
-  opts.innerHTML = '';
-  question.options.forEach((text, i) => {
+  const o = $('quizOptions'); o.innerHTML = '';
+  question.options.forEach((t, i) => {
     const btn = document.createElement('button');
     btn.className = 'option';
-    btn.textContent = text;
+    btn.textContent = t;
     btn.onclick = () => answer(i);
-    opts.appendChild(btn);
+    o.appendChild(btn);
   });
-
   $('quizExplain').classList.add('hidden');
   $('quizNext').style.display = 'none';
   q.answered = false;
 }
-
-function answer(selected) {
+function answer(sel) {
   const q = state.quiz;
   if (q.answered) return;
   q.answered = true;
-
   const question = q.questions[q.current];
   const opts = document.querySelectorAll('#quizOptions .option');
-
   opts.forEach((btn, i) => {
     btn.disabled = true;
     if (i === question.correct) btn.classList.add('correct');
-    else if (i === selected) btn.classList.add('wrong');
+    else if (i === sel) btn.classList.add('wrong');
   });
-
-  if (selected === question.correct) {
-    q.correct++;
-    state.totalCorrect++;
-    SFX.correct();
-  } else {
-    state.totalWrong++;
-    SFX.wrong();
-  }
-
+  if (sel === question.correct) { q.correct++; state.totalCorrect++; SFX.correct(); }
+  else { state.totalWrong++; SFX.wrong(); }
   const ex = $('quizExplain');
   ex.textContent = '💡 ' + question.explain;
   ex.classList.remove('hidden');
-
-  const next = $('quizNext');
-  next.style.display = 'flex';
-  next.textContent = (q.current === q.questions.length - 1) ? 'Завершить →' : 'Далее →';
-  next.onclick = nextQuestion;
+  const nb = $('quizNext');
+  nb.style.display = 'flex';
+  nb.textContent = (q.current === q.questions.length - 1) ? 'Завершить →' : 'Далее →';
+  nb.onclick = nextQuestion;
 }
-
 function nextQuestion() {
   const q = state.quiz;
-  if (q.current < q.questions.length - 1) {
-    q.current++;
-    renderQuestion();
-  } else {
-    finishQuiz();
-  }
+  if (q.current < q.questions.length - 1) { q.current++; renderQuestion(); }
+  else finishQuiz();
 }
-
 function finishQuiz() {
   const q = state.quiz;
   const total = q.questions.length;
-  const gainedXP = q.correct * 10;
-  const oldStageIdx = getStage(state.xp);
-
-  const key = lessonKey(q.topicId, q.lessonIdx);
+  const xp = q.correct * 10;
+  const oldS = getStage(state.xp);
+  const key = 'bilet' + q.biletId;
   const prev = state.completed[key] || 0;
   if (q.correct > prev) {
     state.completed[key] = q.correct;
     if (q.correct === total) state.perfectOnce = true;
   }
-  state.xp += gainedXP;
+  state.xp += xp;
   save();
-
-  const newStageIdx = getStage(state.xp);
-
+  const newS = getStage(state.xp);
   const pct = q.correct / total;
-  let emoji = '🎉', title = 'Отлично!';
-  if (pct < 0.5) { emoji = '😅'; title = 'Есть куда расти'; }
-  else if (pct < 0.8) { emoji = '👍'; title = 'Хороший результат!'; }
-  else if (pct === 1) { emoji = '🏆'; title = 'Идеально!'; }
-
-  $('resultEm').textContent = emoji;
+  let em = '🎉', title = 'Отлично!';
+  if (pct < 0.5) { em = '😅'; title = 'Есть куда расти'; }
+  else if (pct < 0.8) { em = '👍'; title = 'Хороший результат!'; }
+  else if (pct === 1) { em = '🏆'; title = 'Идеально!'; }
+  $('resultEm').textContent = em;
   $('resultTitle').textContent = title;
-  $('resultSub').textContent = `${q.lessonTitle}`;
+  $('resultSub').textContent = q.lessonTitle;
   $('resultStats').innerHTML = `
     <div><b>${q.correct}/${total}</b><small>верно</small></div>
-    <div><b>+${gainedXP}</b><small>XP</small></div>
-    <div><b>${state.streak}</b><small>стрик</small></div>
-  `;
+    <div><b>+${xp}</b><small>XP</small></div>
+    <div><b>${state.streak}</b><small>стрик</small></div>`;
   SFX.finish();
   showScreen('result');
   checkAchievements();
-
-  if (newStageIdx > oldStageIdx) {
-    setTimeout(() => showLevelUp(newStageIdx), 700);
-  }
+  if (newS > oldS) setTimeout(() => showLevelUp(newS), 700);
 }
-
-function showLevelUp(stageIdx) {
+function showLevelUp(s) {
   const a = getAnimal();
-  const stage = STAGES[stageIdx];
-  const div = document.createElement('div');
-  div.className = 'overlay';
-  div.innerHTML = `
-    <div class="modal">
-      <div class="em">${a.emoji[stageIdx]}</div>
-      <h3>Новая стадия: ${stage.label}!</h3>
-      <p>Твой ${a.name.toLowerCase()} подрос. Продолжай в том же духе!</p>
-      <button class="btn btn-full" style="margin:0">Ура!</button>
-    </div>`;
-  div.querySelector('button').onclick = () => div.remove();
-  document.body.appendChild(div);
+  const st = STAGES[s];
+  const d = document.createElement('div');
+  d.className = 'overlay';
+  d.innerHTML = `<div class="modal"><div class="em">${a.emoji[s]}</div>
+    <h3>Новая стадия: ${st.label}!</h3>
+    <p>Твой ${a.name.toLowerCase()} подрос. Продолжай!</p>
+    <button class="btn btn-full" style="margin:0">Ура!</button></div>`;
+  d.querySelector('button').onclick = () => d.remove();
+  document.body.appendChild(d);
   SFX.levelup();
 }
 
 /* ============================================================
-   ЭКЗАМЕН (пробный режим с таймером)
+   ЭКЗАМЕН
    ============================================================ */
 function renderExamTab() {
-  const wrap = $('tab-exam');
-  wrap.innerHTML = `
+  const w = $('tab-exam');
+  const accuracy = state.totalCorrect + state.totalWrong ?
+    Math.round(state.totalCorrect / (state.totalCorrect + state.totalWrong) * 100) : 0;
+  w.innerHTML = `
     <div class="card">
       <h2>⏱️ Пробный экзамен</h2>
-      <p class="sub">10 случайных вопросов из всех тем. Таймер — 5 минут. Без подсказок.</p>
+      <p class="sub">10 случайных вопросов из всех билетов. Таймер — 5 минут. +15 XP за верный ответ.</p>
       <button class="btn btn-full" id="startExamBtn" style="margin:0">Начать экзамен</button>
     </div>
     <div class="card">
-      <h2>📊 Твоя статистика</h2>
+      <h2>📊 Статистика</h2>
       <div class="stats" style="margin:0">
         <div class="stat"><span class="em">✅</span><b>${state.totalCorrect}</b><small>верных</small></div>
         <div class="stat"><span class="em">❌</span><b>${state.totalWrong}</b><small>ошибок</small></div>
-        <div class="stat"><span class="em">🎯</span><b>${state.totalCorrect + state.totalWrong ? Math.round(state.totalCorrect / (state.totalCorrect + state.totalWrong) * 100) : 0}%</b><small>точность</small></div>
+        <div class="stat"><span class="em">🎯</span><b>${accuracy}%</b><small>точность</small></div>
         <div class="stat"><span class="em">🔥</span><b>${state.streak}</b><small>стрик</small></div>
       </div>
-    </div>
-  `;
+    </div>`;
   $('startExamBtn').onclick = () => { SFX.click(); startExam(); };
 }
-
 function startExam() {
-  // Собираем все вопросы
   const all = [];
-  TOPICS.forEach(t => {
-    t.lessons.forEach(l => {
-      l.questions.forEach(q => all.push(q));
-    });
-  });
-  // перемешать
-  const shuffled = all.sort(() => Math.random() - 0.5).slice(0, 10);
-
+  CHVO.forEach(b => b.questions.forEach(q => all.push(q)));
+  const sh = all.sort(() => Math.random() - 0.5).slice(0, 10);
   state.exam = {
-    questions: shuffled,
-    current: 0,
-    correct: 0,
-    answered: false,
-    timeLeft: 300,
-    timer: null,
-    lessonTitle: 'Пробный экзамен'
+    questions: sh, current: 0, correct: 0, answered: false,
+    timeLeft: 300, timer: null, lessonTitle: 'Пробный экзамен'
   };
-
-  // Используем экран квиза с таймером сверху
-  const timerDiv = document.createElement('div');
-  timerDiv.className = 'exam-timer';
-  timerDiv.innerHTML = `<span>⏱️</span><span class="t" id="examTimer">05:00</span>`;
-  const quizCard = $('screen-quiz').querySelector('.card');
-  quizCard.insertBefore(timerDiv, quizCard.firstChild);
-
+  const t = document.createElement('div');
+  t.className = 'exam-timer';
+  t.innerHTML = `<span>⏱️</span><span class="t" id="examTimer">05:00</span>`;
+  const c = $('screen-quiz').querySelector('.card');
+  c.insertBefore(t, c.firstChild);
   showScreen('quiz');
   renderQuestion();
-
   state.exam.timer = setInterval(() => {
     state.exam.timeLeft--;
     const m = Math.floor(state.exam.timeLeft / 60);
@@ -1578,42 +1248,33 @@ function startExam() {
     if (!el) return;
     el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
     if (state.exam.timeLeft <= 60) el.classList.add('warn');
-    if (state.exam.timeLeft <= 0) {
-      clearInterval(state.exam.timer);
-      finishExam(true);
-    }
+    if (state.exam.timeLeft <= 0) { clearInterval(state.exam.timer); finishExam(true); }
   }, 1000);
 }
-
 function finishExam(timeUp) {
   if (state.exam.timer) clearInterval(state.exam.timer);
   const q = state.exam;
   const total = q.questions.length;
-  const gainedXP = q.correct * 15;
-
-  state.xp += gainedXP;
+  const xp = q.correct * 15;
+  state.xp += xp;
   state.totalCorrect += q.correct;
   state.totalWrong += (q.current + 1) - q.correct;
+  state.examPassed = true;
   save();
-
-  const timer = $('examTimer');
-  if (timer) timer.parentElement.remove();
-
+  const t = $('examTimer'); if (t) t.parentElement.remove();
   const pct = q.correct / total;
-  let emoji = '🎉', title = 'Экзамен сдан!';
-  if (timeUp) { emoji = '⏰'; title = 'Время вышло!'; }
-  else if (pct < 0.5) { emoji = '😅'; title = 'Пока слабовато'; }
-  else if (pct < 0.8) { emoji = '👍'; title = 'Хороший результат!'; }
-  else if (pct === 1) { emoji = '🏆'; title = 'Идеально!'; }
-
-  $('resultEm').textContent = emoji;
+  let em = '🎉', title = 'Экзамен сдан!';
+  if (timeUp) { em = '⏰'; title = 'Время вышло!'; }
+  else if (pct < 0.5) { em = '😅'; title = 'Пока слабовато'; }
+  else if (pct < 0.8) { em = '👍'; title = 'Хороший результат!'; }
+  else if (pct === 1) { em = '🏆'; title = 'Идеально!'; }
+  $('resultEm').textContent = em;
   $('resultTitle').textContent = title;
-  $('resultSub').textContent = `Пробный экзамен`;
+  $('resultSub').textContent = 'Пробный экзамен';
   $('resultStats').innerHTML = `
     <div><b>${q.correct}/${total}</b><small>верно</small></div>
-    <div><b>+${gainedXP}</b><small>XP</small></div>
-    <div><b>${Math.round(pct * 100)}%</b><small>результат</small></div>
-  `;
+    <div><b>+${xp}</b><small>XP</small></div>
+    <div><b>${Math.round(pct * 100)}%</b><small>результат</small></div>`;
   SFX.finish();
   showScreen('result');
   checkAchievements();
@@ -1622,29 +1283,21 @@ function finishExam(timeUp) {
 /* ============================================================
    ДОСТИЖЕНИЯ
    ============================================================ */
-function renderAchievements() {
-  const wrap = $('tab-ach');
-  const unlocked = Object.keys(state.achievements).length;
-  wrap.innerHTML = `
-    <div class="card">
-      <h2>🏆 Достижения</h2>
-      <p class="sub">Открыто ${unlocked} из ${ACHIEVEMENTS.length}</p>
-      <div class="ach-grid" id="achGrid"></div>
-    </div>
-  `;
-  const grid = $('achGrid');
+function renderAch() {
+  const w = $('tab-ach');
+  const u = Object.keys(state.achievements).length;
+  w.innerHTML = `<div class="card"><h2>🏆 Достижения</h2>
+    <p class="sub">Открыто ${u} из ${ACHIEVEMENTS.length}</p>
+    <div class="ach-grid" id="achGrid"></div></div>`;
+  const g = $('achGrid');
   ACHIEVEMENTS.forEach(a => {
-    const isUnlocked = !!state.achievements[a.id];
+    const un = !!state.achievements[a.id];
     const el = document.createElement('div');
-    el.className = 'ach ' + (isUnlocked ? 'unlocked' : 'locked');
-    el.innerHTML = `
-      <div class="aic">${a.icon}</div>
-      <div class="ainfo">
-        <div class="atitle">${a.title}</div>
-        <div class="adesc">${a.desc}</div>
-      </div>
-    `;
-    grid.appendChild(el);
+    el.className = 'ach ' + (un ? 'unlocked' : 'locked');
+    el.innerHTML = `<div class="aic">${a.icon}</div>
+      <div class="ainfo"><div class="atitle">${a.title}</div>
+      <div class="adesc">${a.desc}</div></div>`;
+    g.appendChild(el);
   });
 }
 
@@ -1652,130 +1305,82 @@ function renderAchievements() {
    НАСТРОЙКИ
    ============================================================ */
 function renderSettings() {
-  const wrap = $('tab-settings');
-  wrap.innerHTML = `
-    <div class="card">
-      <h2>⚙️ Настройки</h2>
+  const w = $('tab-settings');
+  w.innerHTML = `
+    <div class="card"><h2>⚙️ Настройки</h2>
       <div class="setting-row">
-        <div>
-          <div class="lbl">🔊 Звуки</div>
-          <div class="sub">Клики, ответы, награды</div>
-        </div>
+        <div><div class="lbl">🔊 Звуки</div><div class="sub">Клики и ответы</div></div>
         <button class="switch ${state.sound ? 'on' : ''}" id="setSound"></button>
       </div>
       <div class="setting-row">
-        <div>
-          <div class="lbl">🌙 Тёмная тема</div>
-          <div class="sub">Для вечерних занятий</div>
-        </div>
+        <div><div class="lbl">🌙 Тёмная тема</div><div class="sub">Для вечерних занятий</div></div>
         <button class="switch ${state.theme === 'dark' ? 'on' : ''}" id="setTheme"></button>
       </div>
     </div>
-    <div class="card">
-      <h2>💾 Прогресс</h2>
-      <p class="sub">Экспорт/импорт позволяет переносить прогресс между устройствами.</p>
-      <button class="btn btn-ghost btn-full" id="exportBtn" style="margin-bottom:8px">📤 Экспорт прогресса</button>
+    <div class="card"><h2>💾 Прогресс</h2>
+      <p class="sub">Экспорт/импорт для переноса между устройствами.</p>
+      <button class="btn btn-ghost btn-full" id="exportBtn" style="margin-bottom:8px">📤 Экспорт</button>
       <label class="btn btn-ghost btn-full" style="cursor:pointer;margin-bottom:8px">
-        📥 Импорт прогресса
-        <input type="file" id="importFile" accept=".json" style="display:none">
+        📥 Импорт <input type="file" id="importFile" accept=".json" style="display:none">
       </label>
       <button class="btn btn-danger btn-full" id="resetBtn">🗑 Сбросить всё</button>
     </div>
-    <div class="card">
-      <h2>ℹ️ О приложении</h2>
-      <p class="sub" style="margin:0">Тренажёр по блоку «Человек в обществе» для подготовки к ЕГЭ по обществознанию. Контент — 8 билетов + 5 тем + виды наук. Всего ${BILETY.reduce((n,b) => n + b.blocks.length, 0)} блоков теории.</p>
-    </div>
-  `;
-
-  $('setSound').onclick = () => {
-    state.sound = !state.sound;
-    save();
-    applySound();
-    SFX.click();
-    renderSettings();
-  };
-  $('setTheme').onclick = () => {
-    state.theme = state.theme === 'dark' ? 'light' : 'dark';
-    save();
-    applyTheme();
-    SFX.click();
-    renderSettings();
-  };
+    <div class="card"><h2>ℹ️ О приложении</h2>
+      <p class="sub" style="margin:0">Тренажёр по блоку «Человек в обществе» для подготовки к ЕГЭ. 8 билетов, ${CHVO.reduce((n,b) => n + b.questions.length, 0)} вопросов, ${CHVO.reduce((n,b) => n + b.blocks.length, 0)} блоков теории.</p>
+    </div>`;
+  $('setSound').onclick = () => { state.sound = !state.sound; save(); applySound(); SFX.click(); renderSettings(); };
+  $('setTheme').onclick = () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; save(); applyTheme(); SFX.click(); renderSettings(); };
   $('exportBtn').onclick = () => {
-    const data = JSON.stringify(state, null, 2);
-    const blob = new Blob([data], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
+    const b = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    const u = URL.createObjectURL(b);
     const a = document.createElement('a');
-    a.href = url;
-    a.download = 'ege-progress-' + new Date().toISOString().slice(0,10) + '.json';
-    a.click();
-    URL.revokeObjectURL(url);
-    SFX.click();
+    a.href = u; a.download = 'ege-chvo-' + new Date().toISOString().slice(0,10) + '.json';
+    a.click(); URL.revokeObjectURL(u); SFX.click();
   };
   $('importFile').onchange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
+    const f = e.target.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
       try {
-        const data = JSON.parse(reader.result);
-        state = Object.assign(state, data);
-        save();
-        applyTheme();
-        applySound();
-        renderHome();
-        renderSettings();
+        state = Object.assign(state, JSON.parse(r.result));
+        save(); applyTheme(); applySound(); renderHome(); renderSettings();
         alert('Прогресс загружен!');
-      } catch(err) {
-        alert('Не удалось прочитать файл');
-      }
+      } catch(err) { alert('Ошибка файла'); }
     };
-    reader.readAsText(file);
+    r.readAsText(f);
   };
   $('resetBtn').onclick = () => {
-    if (confirm('Точно сбросить ВЕСЬ прогресс? Это нельзя отменить.')) {
-      localStorage.removeItem(KEY);
-      location.reload();
-    }
+    if (confirm('Сбросить ВЕСЬ прогресс?')) { localStorage.removeItem(KEY); location.reload(); }
   };
 }
 
 /* ============================================================
    ОБРАБОТЧИКИ
    ============================================================ */
+$('studyBack').onclick = () => { SFX.click(); showScreen('home'); renderHome(); };
 $('quizBack').onclick = () => {
   if (confirm('Выйти? Прогресс не сохранится.')) {
     if (state.exam && state.exam.timer) clearInterval(state.exam.timer);
-    const timer = $('examTimer');
-    if (timer) timer.parentElement.remove();
+    const t = $('examTimer'); if (t) t.parentElement.remove();
     state.exam = null;
-    showScreen('home');
-    renderHome();
+    showScreen('home'); renderHome();
   }
 };
 $('resultNext').onclick = () => {
   state.exam = null;
-  showScreen('home');
-  renderHome();
+  showScreen('home'); renderHome();
 };
-$('soundBtn').onclick = () => {
-  state.sound = !state.sound;
-  save(); applySound(); SFX.click();
-};
-$('themeBtn').onclick = () => {
-  state.theme = state.theme === 'dark' ? 'light' : 'dark';
-  save(); applyTheme(); SFX.click();
-};
+$('soundBtn').onclick = () => { state.sound = !state.sound; save(); applySound(); SFX.click(); };
+$('themeBtn').onclick = () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; save(); applyTheme(); SFX.click(); };
 
 /* ============================================================
-   ИНИЦИАЛИЗАЦИЯ
+   INIT
    ============================================================ */
 function init() {
   load();
   applyTheme();
   applySound();
-  renderAnimalChooser();
-
+  renderAnimals();
   if (state.animalId && ANIMALS[state.animalId]) {
     updateStreak();
     showScreen('home');
